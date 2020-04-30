@@ -1,42 +1,9 @@
 {% load static %}
-<html>
-
+<h1>home</h1>
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="{% static 'accounts/style.css' %}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
-
-<body>
-    <div>
-    </div>
-    <div class="card" style="width: 500px; height: 400px;">
-        <div class="card-header">
-            Bienvenido!
-        </div>
-        <form method="post">{% csrf_token %}
-
-            <div class="input-container">
-                <input type="text" class="form-control" placeholder="Usuario" aria-label="Usuario"
-                    aria-describedby="addon-wrapping" required>
-
-                <input type="text" id="password" class="form-control" placeholder="Contraseña" aria-label="password"
-                    aria-describedby="addon-wrapping" required>
-            </div>
-
-            <button type="submit" class="btn btn-dark .btn-sm" id="buton-ingresa">Ingresar</button>
-
-            <div class="account-container">
-                <p>¿No tienes cuenta?<a href="{% url 'accounts:register' %}"> Crea una</a></p>
-            </div>
-
-            <div class="password-container">
-                <a href="http://www.stopsweats.org">No recuerdo mi contraseña</a>
-            </div>
-        </form>
-    </div>
-    </div>
-</body>
-
-</html>
+<span ><a  class="hello-msg" href="{% url 'accounts:logout' %}">Logout</a></span>

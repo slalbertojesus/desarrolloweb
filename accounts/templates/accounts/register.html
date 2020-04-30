@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <div class="card" style="width: 500px; height: 400px;">
+    <div class="card" style="width: 500px; height: 450px;">
         <div class="card-header">
             Registrate!
         </div>
@@ -29,9 +29,12 @@
                         {{form.password2}}
                     </div>
             </div>
+            {{form.errors}}
             <button type="submit" class="btn btn-dark .btn-sm" id="buton-ingresa">Ingresar</button>
+                <div class="login-container">
+                    <p>¿Ya tienes cuenta?<a href="{% url 'accounts:login' %}"> Inicia sesión</a></p>
+                </div>
         </form>
-    </div>
     </div>
 </body>
 
