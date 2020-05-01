@@ -29,8 +29,13 @@
                         {{form.password2}}
                     </div>
             </div>
-            {{form.errors}}
-            <button type="submit" class="btn btn-dark .btn-sm" id="buton-ingresa">Ingresar</button>
+            {% for message in messages %}
+            <p id="messages">{{message}}</p>
+            {% endfor %}
+            {% for field in form %}
+            <p id="errors">{{field.errors}}</p>
+            {% endfor %}
+            <button type="submit" class="btn btn-dark .btn-sm" id="buton-ingresa">Crear cuenta</button>
                 <div class="login-container">
                     <p>¿Ya tienes cuenta?<a href="{% url 'accounts:login' %}"> Inicia sesión</a></p>
                 </div>

@@ -19,23 +19,26 @@ def display_register(request):
             if form.is_valid():
                 form.save()
                 user = form.cleaned_data.get('username')
-                messages.success(request, 'Cuenta creada para' + user)
+                messages.success(request, 'Cuenta creada para ' + user + ", confirma tu correo para poder iniciar sesión")
                 return redirect('/login')
     context = {'form':form}
     return render(request, 'accounts/register.html', context)
 
 def display_login(request):
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        user = authenticate(request, username = username, password = password)
-        if user is not None: 
-            login(request, user)
-            return redirect('/')
-        else: 
-            messages.info(request, 'Usuario o contraseña es incorrecta')
-    context = {}
-    return render(request, 'accounts/login.html', context)
+    if request.user.is_authenticated:
+        return redirect('/')
+    else:
+        if request.method == 'POST':
+            username = request.POST.get('username')
+            password = request.POST.get('password')
+            user = authenticate(request, username = username, password = password)
+            if user is not None: 
+                login(request, user)
+                return redirect('/')
+            else: 
+                messages.info(request, 'Usuario o contraseña es incorrecta')
+        context = {}
+        return render(request, 'accounts/login.html', context)
 
 def logout_user(request):
     logout(request)
