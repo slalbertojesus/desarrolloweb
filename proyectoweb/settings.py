@@ -25,6 +25,24 @@ SECRET_KEY = '1y#khp5bzd!2*s_+xo=od)z7w_-c71*1fq8^tt#ln!w1ybj3=!'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+# DEFAULT ENGINE FOR EMAILS
+DEFAULT_FROM_EMAIL = "postmaster@sandbox210394da446d43899409579c7f7cbe83.mailgun.org"
+
+#EMAIL_HOST = "smtp.mailgun.org"
+#EMAIL_HOST_USER = "postmaster@sandbox210394da446d43899409579c7f7cbe83.mailgun.org"    
+#EMAIL_HOST_PASSWORD = "0dfc12d7003557af42daa79c05c97260-baa55c84-58062540"
+#EMAIL_PORT = 587
+#EMAIL_USE_TLS = True
+
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_HOST_USER = "albertoj1606@gmail.com"
+EMAIL_HOST_PASSWORD = "Thechukrok1606"
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+
+AUTH_USER_MODEL = 'accounts.Account'
+
 ALLOWED_HOSTS = []
 
 # Application definition
@@ -77,7 +95,7 @@ WSGI_APPLICATION = 'proyectoweb.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
+        'NAME': 'testing2',
         'USER': 'postgres',
         'PASSWORD': 'postgres',
         'HOST': 'db',

@@ -1,3 +1,5 @@
 from django.contrib import admin
+from accounts.models import EmailConfirmed, Account
 
-# Register your models here.
+admin.site.register(EmailConfirmed)
+admin.site.register(Account)

@@ -1,0 +1,5 @@
+Hola {{ user }}, 
+Por favor activa tu cuenta aquí: 
+{{ activation_url }}
+Gracias por unirte a nuestro equipo.
+ 

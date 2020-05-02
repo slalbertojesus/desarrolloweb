@@ -6,7 +6,7 @@ services:
   db:
     image: postgres
     environment:
-      - POSTGRES_DB=postgres
+      - POSTGRES_DB=testing2
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       

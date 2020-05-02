@@ -1,7 +1,11 @@
-from django.contrib.auth import authenticate, login, logout
-from django.shortcuts import render, redirect
-from django.contrib.auth.forms import UserCreationForm  
+import re
 from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import UserCreationForm  
+from django.shortcuts import render, redirect, Http404
+
+from accounts.models import EmailConfirmed, Account
+
 
 from .forms import CreateUserForm 
 
@@ -40,7 +44,19 @@ def display_login(request):
         context = {}
         return render(request, 'accounts/login.html', context)
 
+SHA1_RE = re.compile('^[a-f0-9]{40}$')
+
+def activation_view(request, activation_key):
+    if SHA1_RE.search(activation_key):
+        print("La llave es real")
+        context = {}
+        return render(request, 'accounts/activation_complete.html', context)
+    else: 
+        raise Http404
+
+
 def logout_user(request):
     logout(request)
     return redirect('/login')
+
 

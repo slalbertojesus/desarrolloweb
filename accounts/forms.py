@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
+from accounts.models import EmailConfirmed, Account
 from django import forms
 
 class CreateUserForm(UserCreationForm):
@@ -9,7 +9,7 @@ class CreateUserForm(UserCreationForm):
     }
 	
 	class Meta:
-		model = User
+		model = Account
 		fields = ['username', 'email', 'password1', 'password2']
 
 		widgets = {
@@ -36,17 +36,5 @@ class CreateUserForm(UserCreationForm):
 		 'placeholder': 'Contraseña', 'required':'True'})
 		self.fields['password2'].widget = forms.PasswordInput(attrs={'class': 'form-control',
 		 'placeholder': 'Repite la contraseña', 'required':'True'})
-		self.fields['password1'].error_messages = {
-            'invalid': "No sea pendejo.",
-            'required': "No sea meco.",
-            'max_length': "La contraseña es inválida.",
-			'min_length': 'Las contraseñas son diferentes.',
-		}
-		self.fields['password2'].error_messages = {
-            'invalid': "No sea pendejo.",
-            'required': "No sea meco.",
-            'max_length': "La contraseña es inválida.",
-			'min_length': 'Las contraseñas son diferentes.',
-		}
 
 		
