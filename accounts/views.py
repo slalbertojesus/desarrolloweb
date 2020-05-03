@@ -46,10 +46,24 @@ def display_login(request):
 
 SHA1_RE = re.compile('^[a-f0-9]{40}$')
 
-def activation_view(request, activation_key):
-    if SHA1_RE.search(activation_key):
-        print("La llave es real")
-        context = {}
+def activation_view(request, activation_key_provided):
+    if SHA1_RE.search(activation_key_provided):
+        try:
+            print("Cadena de activación provista: " + activation_key_provided)
+            user_confirmed =  EmailConfirmed.objects.get(activation_key = activation_key_provided)
+        except EmailConfirmed.DoesNotExist:
+            user_confirmed = None
+            raise Http404
+        if user_confirmed is not None and not user_confirmed.confirmed:
+            message = "El correo ha sido confirmado correctamente."
+            user_confirmed.confirmed = True
+            user_confirmed.save()
+        elif user_confirmed is not None and user_confirmed.confirmed:
+            message = "El correo ya ha sido confirmado."
+        else:
+            message = ""
+
+        context = {"message": message}
         return render(request, 'accounts/activation_complete.html', context)
     else: 
         raise Http404

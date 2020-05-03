@@ -17,15 +17,14 @@ class EmailConfirmed(models.Model):
         return str(self.confirmed)
 
     def send_activation_email(self):
-        activation_url = "http://localhost:8005/accounts/activate/%s" %(self.activation_key)
+        activation_url = "http://localhost:8005/accounts/activate/" + self.activation_key 
+        print("LLave de activación en el modelo: " + self.activation_key)
         context = {
-            "activation_key": self.activation_key,
             "activation_url": activation_url,
             "user": self.user.username,
         }
         message = render_to_string("accounts/activation_message.txt", context)
         subject = "Activa tu correo, por favor."
-        print(message)
         self.email_user(subject, message, settings.DEFAULT_FROM_EMAIL)
  
     def email_user(self, subject, message, from_email=None, **kwargs):

@@ -15,5 +15,5 @@ urlpatterns = [
 	path('login/', display_login, name="login"),
 	path('register/', display_register, name="register"),
 	path('logout/', logout_user, name="logout"),
-	path('accounts/activate/<activation_key>', activation_view, name="activation"),
+	path('accounts/activate/<activation_key_provided>', activation_view, name="activation"),
 ]

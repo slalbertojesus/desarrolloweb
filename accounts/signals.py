@@ -18,9 +18,10 @@ def account_post_save_signal(sender, instance, created,**kwargs):
     if created:
         email_confirmed, email_is_created = EmailConfirmed.objects.get_or_create(user=User)
         if email_is_created:
-            short_hash = hashlib.sha1(str(random.random()).encode('utf-8')).hexdigest()
+            short_hash = hashlib.sha1(str(random.random()).encode('utf-8')).hexdigest()[:5]
             username = User.username
             activation_key = hashlib.sha1((short_hash+username).encode('utf-8')).hexdigest()
+            print("Llave de activación en señal: "+activation_key)
             email_confirmed.activation_key = activation_key
             email_confirmed.save()
             email_confirmed.send_activation_email()
