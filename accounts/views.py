@@ -68,7 +68,6 @@ def activation_view(request, activation_key_provided):
     else: 
         raise Http404
 
-
 def logout_user(request):
     logout(request)
     return redirect('/login')
