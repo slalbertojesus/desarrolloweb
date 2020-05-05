@@ -21,7 +21,6 @@ def account_post_save_signal(sender, instance, created,**kwargs):
             short_hash = hashlib.sha1(str(random.random()).encode('utf-8')).hexdigest()[:5]
             username = User.username
             activation_key = hashlib.sha1((short_hash+username).encode('utf-8')).hexdigest()
-            print("Llave de activación en señal: "+activation_key)
             email_confirmed.activation_key = activation_key
             email_confirmed.save()
             email_confirmed.send_activation_email()
