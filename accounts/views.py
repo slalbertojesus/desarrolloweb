@@ -1,4 +1,6 @@
 import re
+import random 
+import hashlib
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm  
@@ -6,7 +8,7 @@ from django.shortcuts import render, redirect, Http404
 from django.contrib.auth import get_user_model
 
 
-from accounts.models import EmailConfirmed
+from accounts.models import EmailConfirmed, PasswordReset
 
 
 from .forms import CreateUserForm 
@@ -81,11 +83,18 @@ def restore_password_view(request):
             message = "El usuario no existe, verifica que es correcto"
             messages.info(request, message)
         if user is not None:
-            #Se crea código usuario * correo * hora 
-            #Se agrega ese código a modelo
-            #Se manda correo
-            message = "Se ha mandado un mensaje al correo "
-            messages.info(request, message)
+            password_already_forgotten, password_reset_created = PasswordReset.objects.get_or_create(user=user)
+            if password_reset_created:
+                short_hash = hashlib.sha1(str(random.random()).encode('utf-8')).hexdigest()[:5]
+                reset_key = hashlib.sha1((short_hash+username).encode('utf-8')).hexdigest()
+                password_already_forgotten.reset_key = reset_key
+                password_already_forgotten.save()
+                password_already_forgotten.send_password_reset_email()
+                message = "Se ha mandado un mensaje al correo "
+                messages.info(request, message)
+            else:
+                message = "No se ha podido enviar el correo "
+                messages.info(request, message)
     context = {}
     return render(request, 'accounts/password_reset.html', context)
 

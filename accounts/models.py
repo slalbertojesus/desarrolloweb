@@ -16,14 +16,14 @@ class PasswordReset(models.Model):
         return str(self.user)
 
     def send_password_reset_email(self):
-        reset_password_url = "http://localhost:8005/reset-link/" + self.activation_key 
-        print("LLave de activación en el modelo: " + self.activation_key)
+        reset_password_url = "http://localhost:8005/reset-link/" + self.reset_key 
+        print("LLave de activación en el modelo: " + self.reset_key)
         context = {
-            "activation_url": reset_key,
+            "reset_password_url": reset_password_url,
             "user": self.user.username,
         }
         message = render_to_string("accounts/reset_password_message.txt", context)
-        subject = "Haz solicitado un cambio de contraseña." + self.user
+        subject = "Haz solicitado un cambio de contraseña, " + self.user.username +"."
         self.email_user(subject, message, settings.DEFAULT_FROM_EMAIL)
  
     def email_user(self, subject, message, from_email=None, **kwargs):
@@ -44,7 +44,7 @@ class EmailConfirmed(models.Model):
             "user": self.user.username,
         }
         message = render_to_string("accounts/activation_message.txt", context)
-        subject = "Activa tu correo, por favor."
+        subject = "Activa tu correo, por favor. " + self.user.username +"."
         self.email_user(subject, message, settings.DEFAULT_FROM_EMAIL)
  
     def email_user(self, subject, message, from_email=None, **kwargs):
