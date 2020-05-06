@@ -89,6 +89,11 @@ def restore_password_view(request):
     context = {}
     return render(request, 'accounts/password_reset.html', context)
 
+def restore_password_key_view(request, password_key_provided):
+    context = {}
+    return render(request, 'accounts/password_forgotten.html', context)
+
+
 
 def logout_user(request):
     logout(request)
