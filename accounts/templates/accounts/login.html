@@ -1,14 +1,6 @@
-{% load static %}
-<html>
+{% extends 'accounts/base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="{% static 'accounts/style.css' %}">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-</head>
-
-<body>
+{% block real_content %}
     <div>
     </div>
     <div class="card" style="width: 500px; height: 400px;">
@@ -31,16 +23,13 @@
 					<p id="messages">{{message}}</p>
                 {% endfor %}	
                 	
-            <div class="account-container">
-                <p>¿No tienes cuenta?<a href="{% url 'accounts:register' %}"> Crea una</a></p>
-            </div>
-
             <div class="password-container">
                 <a href="{% url 'accounts:restore' %}">No recuerdo mi contraseña</a>
             </div>
         </form>
     </div>
     </div>
-</body>
+{% endblock %}
 
-</html>
+
+
