@@ -1,7 +1,19 @@
 from django.forms import ModelForm
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, SetPasswordForm
 from accounts.models import EmailConfirmed, Account
 from django import forms
+
+class SetCustomPasswordForm(SetPasswordForm):
+	error_messages = {
+        'password_mismatch': "Las contraseñas no son iguales",
+    }
+
+	def __init__(self, *args, **kwargs):
+		super(SetCustomPasswordForm, self).__init__(*args, **kwargs)
+		self.fields['new_password1'].widget = forms.PasswordInput(attrs={'class': 'form-control',
+		 'placeholder': 'Contraseña', 'required':'True'})
+		self.fields['new_password2'].widget = forms.PasswordInput(attrs={'class': 'form-control',
+		 'placeholder': 'Repite la contraseña', 'required':'True'})
 
 class CreateUserForm(UserCreationForm):
 	error_messages = {

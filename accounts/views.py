@@ -3,7 +3,7 @@ import random
 import hashlib
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.forms import UserCreationForm  
+from django.contrib.auth.forms import SetPasswordForm
 from django.shortcuts import render, redirect, Http404
 from django.contrib.auth import get_user_model
 
@@ -11,7 +11,7 @@ from django.contrib.auth import get_user_model
 from accounts.models import EmailConfirmed, PasswordReset
 
 
-from .forms import CreateUserForm 
+from .forms import CreateUserForm, SetCustomPasswordForm 
 
 User = get_user_model()
 
@@ -99,7 +99,31 @@ def restore_password_view(request):
     return render(request, 'accounts/password_reset.html', context)
 
 def restore_password_key_view(request, password_key_provided):
-    context = {}
+    if SHA1_RE.search(password_key_provided):
+        try:
+            password_change =  PasswordReset.objects.get(reset_key = password_key_provided)
+            user = password_change.user
+        except PasswordReset.DoesNotExist:
+            password_change = None
+            raise Http404
+        if password_change is not None:
+            form = SetCustomPasswordForm(request.user, request.POST)
+            if request.method == 'POST':
+                if form.is_valid():
+                    user.set_password(form.cleaned_data.get('new_password1'))
+                    user = authenticate(request, username = user.username, password = form.cleaned_data.get('new_password1'))
+                    user.save()
+                    messages.success(request, 'La contraseña ha sido cambiada satisfactoriamente.')
+                    password_change.reset_key = ""
+                    password_change.save()
+                    return redirect('/login')
+                else:
+                    messages.error(request,'La contraseña no se ha podido cambiar') 
+        else:
+            messages.error(request,'El link es inválido, por favor envía un nuevo formulario para cambiar su contraseña')
+    else: 
+        raise Http404
+    context = {'form':form}
     return render(request, 'accounts/password_forgotten.html', context)
 
 
