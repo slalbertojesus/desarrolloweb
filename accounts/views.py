@@ -100,6 +100,7 @@ def restore_password_view(request):
 
 def restore_password_key_view(request, password_key_provided):
     if SHA1_RE.search(password_key_provided):
+        message = ''
         try:
             password_change =  PasswordReset.objects.get(reset_key = password_key_provided)
             user = password_change.user
@@ -110,20 +111,25 @@ def restore_password_key_view(request, password_key_provided):
             form = SetCustomPasswordForm(request.user, request.POST)
             if request.method == 'POST':
                 if form.is_valid():
-                    user.set_password(form.cleaned_data.get('new_password1'))
-                    user = authenticate(request, username = user.username, password = form.cleaned_data.get('new_password1'))
-                    user.save()
-                    messages.success(request, 'La contraseña ha sido cambiada satisfactoriamente.')
-                    password_change.reset_key = ""
-                    password_change.save()
-                    return redirect('/login')
+                    username = user.username
+                    password = form.cleaned_data.get('new_password1')
+                    user.set_password(password)
+                    loggin = authenticate(request, username = username, password = password)
+                    if user is not None: 
+                        form.save()
+                        messages.success(request, 'La contraseña ha sido cambiada satisfactoriamente.')
+                        password_change.reset_key = ""
+                        password_change.save()
+                        return redirect('/login')
+                    else: 
+                        message = 'Ha ocurrido un error en el servidor.'
                 else:
-                    messages.error(request,'La contraseña no se ha podido cambiar') 
+                    message ='La contraseña no se ha podido cambiar'
         else:
-            messages.error(request,'El link es inválido, por favor envía un nuevo formulario para cambiar su contraseña')
+            message = 'El link es inválido, por favor envía un nuevo formulario para cambiar su contraseña'
     else: 
         raise Http404
-    context = {'form':form}
+    context = {'form':form, "message": message}
     return render(request, 'accounts/password_forgotten.html', context)
 
 
