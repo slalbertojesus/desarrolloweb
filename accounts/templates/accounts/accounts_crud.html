@@ -9,6 +9,12 @@
 {% endblock %}
 
 {% block real_content %}
+
+<div class="modal fade" id="modal">
+
+</div>
+
+<div class="table-cont">
     <div class="table-title">
         <nav class="nav nav-pills nav-fill">
             <H2>Administración de <b>usuarios</b> </H2>
@@ -53,10 +59,48 @@
                 <td> Administrador</td>
                 {% endif %}
                 <td>
-                    <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
+                    <a data-toggle="modal" data-target="#modal" href="{% url 'accounts:update' account.pk %}">
+                    <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                     <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
+                    <button onclick="despliegaModal()">Update product</button>
                 </td>
             </tr>
             {% endfor %}
         </table>
+</div>
+
+<div class="modal-dialog modal-lg" id = "modal" role="document">
+    <form  method="post" id="news-create" class="form">{% csrf_token %}
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title">Add News</h4>
+            </div>
+            <div class="modal-body">
+                <div id='showForm'></div>.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <input type="submit" class="btn btn-primary" value="Save changes" />
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<script>
+    despliegaModal(){
+        $('#myModal').modal('show');
+        $.ajax({
+            type: 'GET',
+            url: '/accounts/update/'+{{account.username}},
+            success: function(res){          
+                $(#showForm).html(res)   
+            }
+        })
+        </script>
+        
 {% endblock %}

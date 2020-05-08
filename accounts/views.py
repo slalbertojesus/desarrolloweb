@@ -1,16 +1,19 @@
 import re
 import random 
 import hashlib
+
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import SetPasswordForm
 from django.shortcuts import render, redirect, Http404
 from django.contrib.auth import get_user_model
+from django.views.generic.edit import UpdateView
 
 
 from accounts.models import EmailConfirmed, PasswordReset
 
 
+from .models import Account 
 from .forms import CreateUserForm, SetCustomPasswordForm 
 
 User = get_user_model()
@@ -135,6 +138,12 @@ def accounts_view(request):
     accounts = User.objects.all()
     context = {'accounts':accounts}
     return render(request, 'accounts/accounts_crud.html', context)
+
+ 
+class UpdateAccount(UpdateView):
+    model = User
+    template_name = 'accounts/modals/update_modal.html'
+    fields = '__all__'
 
 
 def logout_user(request):
