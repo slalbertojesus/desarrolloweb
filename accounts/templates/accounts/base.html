@@ -1,57 +1,62 @@
 {% load static %}
 
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-        <link rel="stylesheet" type="text/css" href="{% static 'accounts/style.css' %}">
-        <link rel="stylesheet" type="text/css" href="{% static 'accounts/password_reset.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'accounts/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'accounts/password_reset.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <title>{% block title %}{% endblock %}</title>
+        {% block style_base %}
+        {% endblock %}  
+</head>
 
-    </head>
-    <body>
-        {% block content %}
-            
-        {% block navigation %}
-        
-        {% if user.is_authenticated %}
-            <header>
-                <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                    <a class="navbar-brand" href="#">Gestión de Actividades de Centro de Investigación e Innovación en Educación
-                        Superior</a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav">
-            
-                            {% if user.is_superuser %}
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'accounts:register' %}">Registrar</a>
-                            </li>
-                            {% endif %}
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'accounts:logout' %}">Cerrrar sesión</a>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
-            
-            </header>
-                       
-            {% endif %}
-            
-        {% endblock %}
-        {% block real_content %}
+<body>
+    {% block content %}
 
-        
-        {% endblock %}
-        
-        
-        {% endblock %}
-        
-    </body>
+    {% block navigation %}
+
+    {% if user.is_authenticated %}
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="{% url 'accounts:home' %}">Gestión de Actividades de Centro de Investigación e Innovación en Educación
+                Superior</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+
+                    {% if user.is_superuser %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'accounts:accounts' %}">Cuentas de invitado</a>
+                    </li>
+                    {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'accounts:logout' %}">Cerrrar sesión</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+    </header>
+
+    {% endif %}
+
+    {% endblock %}
+
+    {% block real_content %}
+    
+    {% endblock %}
+
+
+    {% endblock %}
+
+</body>
 
 
 </html>

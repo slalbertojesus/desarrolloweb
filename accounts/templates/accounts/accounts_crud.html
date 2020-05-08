@@ -1,0 +1,62 @@
+{% extends 'accounts/base.html' %}
+
+{% load static %}
+
+{% block title %}Administración de usuarios{% endblock %}
+
+{% block style_base %}
+<link rel="stylesheet" type="text/css" href="{% static 'accounts/accounts_crud.css' %}">
+{% endblock %}
+
+{% block real_content %}
+    <div class="table-title">
+        <nav class="nav nav-pills nav-fill">
+            <H2>Administración de <b>usuarios</b> </H2>
+            <button type="button" class="btn btn-danger">
+                <svg class="bi bi-exclamation-octagon-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M11.46.146A.5.5 0 0011.107 0H4.893a.5.5 0 00-.353.146L.146 4.54A.5.5 0 000 4.893v6.214a.5.5 0 00.146.353l4.394 4.394a.5.5 0 00.353.146h6.214a.5.5 0 00.353-.146l4.394-4.394a.5.5 0 00.146-.353V4.893a.5.5 0 00-.146-.353L11.46.146zM8 4a.905.905 0 00-.9.995l.35 3.507a.552.552 0 001.1 0l.35-3.507A.905.905 0 008 4zm.002 6a1 1 0 100 2 1 1 0 000-2z" clip-rule="evenodd"/>
+                  </svg>
+                  Eliminar</button>
+            <button type="button" class="btn btn-success">
+                <svg class="bi bi-person-plus" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M11 14s1 0 1-1-1-4-6-4-6 3-6 4 1 1 1 1h10zm-9.995-.944v-.002.002zM1.022 13h9.956a.274.274 0 00.014-.002l.008-.002c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664a1.05 1.05 0 00.022.004zm9.974.056v-.002.002zM6 7a2 2 0 100-4 2 2 0 000 4zm3-2a3 3 0 11-6 0 3 3 0 016 0zm4.5 0a.5.5 0 01.5.5v2a.5.5 0 01-.5.5h-2a.5.5 0 010-1H13V5.5a.5.5 0 01.5-.5z" clip-rule="evenodd"/>
+                    <path fill-rule="evenodd" d="M13 7.5a.5.5 0 01.5-.5h2a.5.5 0 010 1H14v1.5a.5.5 0 01-1 0v-2z" clip-rule="evenodd"/>
+                  </svg>
+                Agregar</button>
+          </nav>
+    </div>
+        <table class="table table-bordered table-dark">
+            {% for account in accounts %}
+            {% if forloop.first %}
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">
+                        <input type="checkbox" id="checkbox" name="get-all" value="check-all">
+                    </th>
+                    <th scope="col">Usuario</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Correo</th>
+                    <th scope="col">Rol</th>
+                    <th scope="col">Acciones disponibles</th>
+                </tr>
+            </thead>
+            {% endif %}
+            <tr>
+                <td>
+                <input type="checkbox" id="checkbox" name='{{ account.username }}' value="check-all">
+                <td>{{ account.username }}</td>
+                <td>{{ account.first_name}}</td>
+                <td>{{ account.email }}</td>
+                {% if account.is_superuser ==  False %}
+                <td> Invitado</td>
+                {% else %}
+                <td> Administrador</td>
+                {% endif %}
+                <td>
+                    <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
+                    <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+{% endblock %}

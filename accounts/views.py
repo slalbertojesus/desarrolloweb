@@ -130,6 +130,11 @@ def restore_password_key_view(request, password_key_provided):
     context = {'form':form, "message": message}
     return render(request, 'accounts/password_forgotten.html', context)
 
+#Needs to be authenticated
+def accounts_view(request):
+    accounts = User.objects.all()
+    context = {'accounts':accounts}
+    return render(request, 'accounts/accounts_crud.html', context)
 
 
 def logout_user(request):
