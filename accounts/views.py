@@ -1,6 +1,7 @@
 import re
 import random 
 import hashlib
+import json
 
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
@@ -8,6 +9,8 @@ from django.contrib.auth.forms import SetPasswordForm
 from django.shortcuts import render, redirect, Http404
 from django.contrib.auth import get_user_model
 from django.views.generic.edit import UpdateView
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
 
 
 from accounts.models import EmailConfirmed, PasswordReset
@@ -142,8 +145,22 @@ def accounts_view(request):
  
 class UpdateAccount(UpdateView):
     model = User
-    template_name = 'accounts/modals/update_modal.html'
     fields = '__all__'
+
+    def update_account_view(request, pk):
+        instance = get_object_or_404(User, pk=pk)
+        form = CreateUserForm(instance=instance)
+        if request.method == "POST":
+            form = CreateUserForm(request.POST, instance=instance)
+            if form.is_valid():
+                form.save()
+                form = {'form': form }
+                return render(request, 'accounts/modals/update_modal.html', form)
+            else:
+                print("HUbo un error")
+        form = {'form': form }
+        return render(request, 'accounts/modals/update_modal.html', form)
+
 
 
 def logout_user(request):
