@@ -15,8 +15,10 @@ from .views import (
 
 	#Administración de cuentas del sistema
 	accounts_view,
+
 	#account_update_view,
 	UpdateAccount,
+	DeleteAccount,
 )
 
 app_name = 'accounts'
@@ -33,4 +35,5 @@ urlpatterns = [
 
 	path('accounts/', accounts_view, name="accounts"),
 	path('accounts/update/<pk>', UpdateAccount.update_account_view, name="update"),
+	path('accounts/delete/<username>', DeleteAccount.as_view(), name="delete"),
 ]

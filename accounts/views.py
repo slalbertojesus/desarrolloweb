@@ -8,7 +8,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import SetPasswordForm
 from django.shortcuts import render, redirect, Http404
 from django.contrib.auth import get_user_model
-from django.views.generic.edit import UpdateView
+from django.views.generic.edit import UpdateView, DeleteView
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 
@@ -17,7 +17,7 @@ from accounts.models import EmailConfirmed, PasswordReset
 
 
 from .models import Account 
-from .forms import CreateUserForm, SetCustomPasswordForm 
+from .forms import CreateUserForm, SetCustomPasswordForm, DeleteAccountForm
 
 User = get_user_model()
 
@@ -161,7 +161,25 @@ class UpdateAccount(UpdateView):
         form = {'form': form }
         return render(request, 'accounts/modals/update_modal.html', form)
 
+class DeleteAccount(DeleteView):
+    model = User
+    form_class = DeleteAccountForm
+    fields = '_all_'
 
+    def delete_account_view(request, username):
+        instance = get_object_or_404(User, username=username)
+        form = DeleteAccountForm()
+        if request.method == "POST":
+            form = DeleteAccountForm(request.POST, instance=instance)
+            if form.is_valid():
+                instance.delete()
+                form.save()
+                form = {'form': form }
+                return render(request, 'accounts/modals/delete_modal.html', form)
+            else:
+                print("Hubo un error")
+        form = {'form': form }
+        return render(request, 'accounts/modals/delete_modal.html', form)
 
 def logout_user(request):
     logout(request)

@@ -55,10 +55,10 @@
             </tr>
         </thead>
         {% endif %}
-        <div class = "table-row" id = "{{ account.pk }}">
+        <div class="table-row" id="{{ account.pk }}">
             <tr>
                 <td>
-                <input type="checkbox" id="checkbox" name='{{ account.username }}' value="check">
+                    <input type="checkbox" id="checkbox" name='{{ account.username }}' value="check">
                 <td>{{ account.pk }}</td>
                 <td>{{ account.username }}</td>
                 <td>{{ account.first_name}}</td>
@@ -69,22 +69,29 @@
                 <td> Administrador</td>
                 {% endif %}
                 <td>
-                    <a data-toggle="modal" data-target="#modal" href="{% url 'accounts:update' account.pk %}">
-                        <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                    <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
+                    <a id="{{ account.pk }}" onclick="UpdateModal(this.id)">
+                        <i class="material-icons" data-toggle="tooltip" title="Editar">&#xE254;</i></a>
+
+                    <a id="{{ account.username }}" onclick="DeleteModal(this.id)">
+                        <i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xE872;</i></a>
+
                     <script type="text/javascript">
-                        function getModal(id) {
-                                $('#LoginModal').modal('show');
+                        function UpdateModal(id) {
+                            $('#UpdateModal').modal('show');
                             $.ajax({
                                 type: 'GET',
                                 url: '/accounts/update/' + id,
                                 success: function (res) {
-                                    $('#LoginModal').html(res)
+                                    $('#UpdateModal').html(res)
                                 }
                             })
-                            }
+                        }
+                        function DeleteModal(username) {
+                            document.getElementById('username').innerHTML = username
+                            localStorage.setItem("username",username);
+                            $('#DeleteModal').modal('show');
+                        }
                     </script>
-                    <button onclick="getModal(this.id)" id="{{ account.pk }}">Update product</button>
                 </td>
             </tr>
         </div>
@@ -93,7 +100,11 @@
 </div>
 
 <!-- Modal Edit-->
-<div class="modal fade" id="LoginModal" tabindex="-1" role="dialog">
+<div class="modal fade" id="UpdateModal" tabindex="-1" role="dialog">
     {% include "accounts/modals/update_modal.html" %}</div>
+
+<!-- Modal Delete-->
+<div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog">
+    {% include "accounts/modals/delete_modal.html" %}</div>
 
 {% endblock %}

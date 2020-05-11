@@ -2,6 +2,13 @@ from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm, SetPasswordForm
 from accounts.models import EmailConfirmed, Account
 from django import forms
+from django.forms import ModelForm
+
+class DeleteAccountForm(ModelForm):
+	class Meta:
+		model = Account
+		fields = ['username']
+
 
 class SetCustomPasswordForm(SetPasswordForm):
 	error_messages = {
