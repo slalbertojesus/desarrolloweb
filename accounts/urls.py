@@ -34,6 +34,6 @@ urlpatterns = [
 	path('restore-password/', restore_password_view, name="restore"),
 
 	path('accounts/', accounts_view, name="accounts"),
-	path('accounts/update/<pk>', UpdateAccount.update_account_view, name="update"),
-	path('accounts/delete/<username>', DeleteAccount.as_view(), name="delete"),
+	path('accounts/update/<pk>', UpdateAccount.as_view(), name="update"),
+	path('accounts/delete/<pk>', DeleteAccount.as_view(), name='delete'),
 ]

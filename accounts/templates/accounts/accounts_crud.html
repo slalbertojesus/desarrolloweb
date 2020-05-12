@@ -10,9 +10,7 @@
 
 {% block real_content %}
 
-<div class="modal fade" id="modal">
-
-</div>
+{% include "accounts/_modal.html" %}
 
 <div class="table-cont">
     <div class="table-title">
@@ -69,28 +67,33 @@
                 <td> Administrador</td>
                 {% endif %}
                 <td>
-                    <a id="{{ account.pk }}" onclick="UpdateModal(this.id)">
-                        <i class="material-icons" data-toggle="tooltip" title="Editar">&#xE254;</i></a>
 
-                    <a id="{{ account.username }}" onclick="DeleteModal(this.id)">
-                        <i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xE872;</i></a>
+                    <button type="button" class="update-account btn btn-sm btn-warning" data-id="{% url 'accounts:update' account.pk %}">
+                        <span class="fa fa-pencil"></span>
+                      </button> 
+
+                      <button type="button" class="delete-account btn btn-sm btn-danger" data-id="{% url 'accounts:delete' account.pk %}">
+                        <span class="fa fa-trash"></span>
+                      </button> 
 
                     <script type="text/javascript">
-                        function UpdateModal(id) {
-                            $('#UpdateModal').modal('show');
-                            $.ajax({
-                                type: 'GET',
-                                url: '/accounts/update/' + id,
-                                success: function (res) {
-                                    $('#UpdateModal').html(res)
-                                }
+                        $(function () {
+
+                            //Actualiza la cuenta seleccionada
+                            $(".update-account").each(function () {
+                                $(this).modalForm({
+                                    formURL: $(this).data('id')
+                                });
                             })
-                        }
-                        function DeleteModal(username) {
-                            document.getElementById('username').innerHTML = username
-                            localStorage.setItem("username",username);
-                            $('#DeleteModal').modal('show');
-                        }
+
+                            //Elimina la cuenta seleccionada
+                            $(".delete-account").each(function () {
+                                $(this).modalForm({
+                                    formURL: $(this).data('id')
+                                });
+                            })
+                        });
+
                     </script>
                 </td>
             </tr>
@@ -98,13 +101,5 @@
         {% endfor %}
     </table>
 </div>
-
-<!-- Modal Edit-->
-<div class="modal fade" id="UpdateModal" tabindex="-1" role="dialog">
-    {% include "accounts/modals/update_modal.html" %}</div>
-
-<!-- Modal Delete-->
-<div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog">
-    {% include "accounts/modals/delete_modal.html" %}</div>
 
 {% endblock %}

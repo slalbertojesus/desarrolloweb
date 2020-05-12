@@ -11,13 +11,15 @@ from django.contrib.auth import get_user_model
 from django.views.generic.edit import UpdateView, DeleteView
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
+from django.urls import reverse_lazy
 
+from bootstrap_modal_forms.generic import BSModalDeleteView, BSModalUpdateView
 
 from accounts.models import EmailConfirmed, PasswordReset
 
 
 from .models import Account 
-from .forms import CreateUserForm, SetCustomPasswordForm, DeleteAccountForm
+from .forms import AccountForm, SetCustomPasswordForm
 
 User = get_user_model()
 
@@ -143,46 +145,20 @@ def accounts_view(request):
     return render(request, 'accounts/accounts_crud.html', context)
 
  
-class UpdateAccount(UpdateView):
+class UpdateAccount(BSModalUpdateView):
     model = User
-    fields = '__all__'
+    form_class = AccountForm
+    success_message = 'Se ha actualizado con éxito'
+    template_name = 'accounts/modals/update_modal.html'
+    success_url = reverse_lazy('accounts:accounts')
 
-    def update_account_view(request, pk):
-        instance = get_object_or_404(User, pk=pk)
-        form = CreateUserForm(instance=instance)
-        if request.method == "POST":
-            form = CreateUserForm(request.POST, instance=instance)
-            if form.is_valid():
-                form.save()
-                form = {'form': form }
-                return render(request, 'accounts/modals/update_modal.html', form)
-            else:
-                print("HUbo un error")
-        form = {'form': form }
-        return render(request, 'accounts/modals/update_modal.html', form)
-
-class DeleteAccount(DeleteView):
+class DeleteAccount(BSModalDeleteView):
     model = User
-    form_class = DeleteAccountForm
-    fields = '_all_'
+    success_message = 'Se ha eliminado con éxito'
+    template_name = 'accounts/modals/delete_modal.html'
+    success_url = reverse_lazy('accounts:accounts')
 
-    def delete_account_view(request, username):
-        instance = get_object_or_404(User, username=username)
-        form = DeleteAccountForm()
-        if request.method == "POST":
-            form = DeleteAccountForm(request.POST, instance=instance)
-            if form.is_valid():
-                instance.delete()
-                form.save()
-                form = {'form': form }
-                return render(request, 'accounts/modals/delete_modal.html', form)
-            else:
-                print("Hubo un error")
-        form = {'form': form }
-        return render(request, 'accounts/modals/delete_modal.html', form)
 
 def logout_user(request):
     logout(request)
     return redirect('/login')
-
-

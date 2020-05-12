@@ -3,11 +3,12 @@ from django.contrib.auth.forms import UserCreationForm, SetPasswordForm
 from accounts.models import EmailConfirmed, Account
 from django import forms
 from django.forms import ModelForm
+from bootstrap_modal_forms.forms import BSModalForm
 
-class DeleteAccountForm(ModelForm):
+class AccountForm(BSModalForm):
 	class Meta:
 		model = Account
-		fields = ['username']
+		exclude = ['first_name']
 
 
 class SetCustomPasswordForm(SetPasswordForm):
