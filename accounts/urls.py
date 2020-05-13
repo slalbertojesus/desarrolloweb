@@ -5,7 +5,6 @@ from .views import (
 	#Navegación
 	display_home,
 	display_login,
-	display_register,
 	logout_user,
 
 	#Procesos de cuenta
@@ -17,6 +16,7 @@ from .views import (
 	accounts_view,
 
 	#account_update_view,
+	CreateAccount,
 	UpdateAccount,
 	DeleteAccount,
 )
@@ -26,7 +26,6 @@ app_name = 'accounts'
 urlpatterns = [
 	path('', display_home, name="home"),
 	path('login/', display_login, name="login"),
-	path('register/', display_register, name="register"),
 	path('logout/', logout_user, name="logout"),
 
 	path('accounts/activate/<activation_key_provided>', activation_view, name="activation"),
@@ -34,6 +33,7 @@ urlpatterns = [
 	path('restore-password/', restore_password_view, name="restore"),
 
 	path('accounts/', accounts_view, name="accounts"),
+	path('accounts/register/', CreateAccount.as_view(), name="register"),
 	path('accounts/update/<pk>', UpdateAccount.as_view(), name="update"),
 	path('accounts/delete/<pk>', DeleteAccount.as_view(), name='delete'),
 ]

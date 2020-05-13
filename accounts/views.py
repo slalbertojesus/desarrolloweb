@@ -9,17 +9,16 @@ from django.contrib.auth.forms import SetPasswordForm
 from django.shortcuts import render, redirect, Http404
 from django.contrib.auth import get_user_model
 from django.views.generic.edit import UpdateView, DeleteView
-from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 
-from bootstrap_modal_forms.generic import BSModalDeleteView, BSModalUpdateView
+from bootstrap_modal_forms.generic import BSModalDeleteView, BSModalUpdateView, BSModalCreateView, BSModalDeleteView
 
 from accounts.models import EmailConfirmed, PasswordReset
 
 
 from .models import Account 
-from .forms import AccountForm, SetCustomPasswordForm
+from .forms import AccountForm, SetCustomPasswordForm, CreateUserForm
 
 User = get_user_model()
 
@@ -143,6 +142,13 @@ def accounts_view(request):
     accounts = User.objects.all()
     context = {'accounts':accounts}
     return render(request, 'accounts/accounts_crud.html', context)
+
+class CreateAccount(BSModalCreateView):
+    model = User
+    form_class = AccountForm
+    success_message = 'Se ha creado un usuario con éxito'
+    template_name = 'accounts/modals/create_modal.html'
+    success_url = reverse_lazy('accounts:accounts')
 
  
 class UpdateAccount(BSModalUpdateView):
