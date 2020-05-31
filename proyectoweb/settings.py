@@ -43,7 +43,7 @@ EMAIL_USE_TLS = True
 
 AUTH_USER_MODEL = 'accounts.Account'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['0.0.0.0']
 
 # Application definition
 
