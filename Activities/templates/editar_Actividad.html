@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Editar actividad</title>
+    <meta charset="utf-8" />
+    <meta name="viewport">
+</head>
+ 
+<body>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{form.as_p }}
+        <button type = "submit"> Editar </button>
+    </form>
+</body>
+</html>

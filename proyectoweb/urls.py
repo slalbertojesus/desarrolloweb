@@ -17,10 +17,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from Activities.views import MostrarActividades
-
+from Activities.views import crearActividad
+from Activities.views import editarActividad
 
 urlpatterns = [
     path('', include('accounts.urls')),
     path('admin/', admin.site.urls),
-    path('FeedActividades/', MostrarActividades)
+    path('FeedActividades/', MostrarActividades, name = "FeedActividades"),
+    path ('crear_Actividad/', crearActividad, name = "crear_Actividad"),
+    path ('editar_Actividad/(?P<id>\d+)/', editarActividad, name = "editar_Actividad"),
 ]

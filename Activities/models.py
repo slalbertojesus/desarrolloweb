@@ -5,7 +5,7 @@ from accounts.models import Account
 class Actividad(models.Model):
     nombre = models.CharField(max_length=50)
     descripcion =models.TextField(max_length=250)
-    estado = models.ForeignKey("EstadoActividad", on_delete=models.CASCADE)
+    estado = models.ForeignKey("EstadoActividad",blank=True, null=True, on_delete=models.CASCADE)
     fechaRealizacion = models.DateField(blank=True, null=True)
     fechaEntrega =  models.DateField()
     account = models.ForeignKey(Account, on_delete=models.CASCADE)

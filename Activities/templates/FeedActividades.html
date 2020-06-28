@@ -1,3 +1,21 @@
+{% extends 'accounts/base.html' %}
+
+{% load static %}
+
+{% block title %}Actividades{% endblock %}
+
+{% block style_base %}
+
+{% endblock %}
+
+{% block real_content %}
+
+<div>
+<h1 align = center> Actividades </h1>
+<div 
+     margin = 50px;
+     align = center
+        >
 <table>
 {% for actividad in actividades %}
   <tr>
@@ -5,6 +23,13 @@
   <td>{{ actividad.descripcion }}</td>
   <td>{{ actividad.fechaEntrega }}</td>
   <td>{{ actividad.estado }}</td>
+  <td>{{ actividad.id }}</td>
+  <td>  <button type="button" class="btn btn-danger">Modificar</button> </td>
+  <td>  <button type="button" class="btn btn-danger">Eliminar</button> </td>
+
 </tr>   
     
 {% endfor %}
+</table>
+</div>
+{% endblock %}
