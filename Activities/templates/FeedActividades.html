@@ -1,0 +1,10 @@
+<table>
+{% for actividad in actividades %}
+  <tr>
+  <td>{{ actividad.nombre }}</td>
+  <td>{{ actividad.descripcion }}</td>
+  <td>{{ actividad.fechaEntrega }}</td>
+  <td>{{ actividad.estado }}</td>
+</tr>   
+    
+{% endfor %}

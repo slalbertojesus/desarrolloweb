@@ -1,6 +1,7 @@
 from django.urls import path, include
 from django.contrib.auth import views
 
+
 from .views import (
 	#Navegación
 	display_home,
@@ -36,4 +37,7 @@ urlpatterns = [
 	path('accounts/register/', CreateAccount.as_view(), name="register"),
 	path('accounts/update/<pk>', UpdateAccount.as_view(), name="update"),
 	path('accounts/delete/<pk>', DeleteAccount.as_view(), name='delete'),
+   
+    
+	 
 ]

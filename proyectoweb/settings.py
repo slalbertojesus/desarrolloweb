@@ -43,7 +43,7 @@ EMAIL_USE_TLS = True
 
 AUTH_USER_MODEL = 'accounts.Account'
 
-ALLOWED_HOSTS = ['0.0.0.0']
+ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1']
 
 # Application definition
 
@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'bootstrap_modal_forms',
     'accounts',
+    'Activities',
 ]
 
 MIDDLEWARE = [
@@ -96,12 +97,8 @@ WSGI_APPLICATION = 'proyectoweb.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'testing2',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': 'db',
-        'PORT': 5432,
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
