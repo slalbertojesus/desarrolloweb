@@ -1,0 +1,27 @@
+{% extends 'accounts/base.html' %}
+
+{% load static %}
+
+{% block title %}Editar actividad{% endblock %}
+
+{% block style_base %}
+
+{% endblock %}
+
+{% block real_content %}
+<head>
+    <title>Eliminar actividad</title>
+    <meta charset="utf-8" />
+    <meta name="viewport">
+</head>
+ 
+<body>
+    <form action="" method="post">
+        {% csrf_token %}
+        <h2> ¿Estas seguro de eliminar el objeto? {{ actividad.nombre }} <h2>
+        <button type = "submit"> Eliminar </button>
+        <button> <a href="{% url 'FeedActividades' %}"> Cancelar </a> </button>
+    </form>
+</body>
+
+{% endblock %}

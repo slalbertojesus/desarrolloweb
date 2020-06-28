@@ -26,6 +26,8 @@ def crearActividad(request):
         return render(request, 'crear_Actividad.html',{'form':form})
 
 def editarActividad(request, id):
+    if request.method == 'GET':
+        form = ActividadForm()
     actividad = Actividad.objects.get(id = id)
     if request.method == 'GET':
         form = ActividadForm(instance = actividad)
@@ -35,3 +37,11 @@ def editarActividad(request, id):
             form.save()
         return redirect('FeedActividades')
     return render(request,'editar_Actividad.html', {'form': form})
+
+def eliminarActividad (request, id):
+    actividad = Actividad.objects.get(id = id)
+    if request.method == 'POST':
+        actividad.delete()
+        return redirect('FeedActividades')
+    return render(request,'eliminar_actividad.html', {'aactividad':actividad})
+    

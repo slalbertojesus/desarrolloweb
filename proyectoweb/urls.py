@@ -19,6 +19,7 @@ from django.urls import path, include
 from Activities.views import MostrarActividades
 from Activities.views import crearActividad
 from Activities.views import editarActividad
+from Activities.views import eliminarActividad
 
 urlpatterns = [
     path('', include('accounts.urls')),
@@ -26,4 +27,5 @@ urlpatterns = [
     path('FeedActividades/', MostrarActividades, name = "FeedActividades"),
     path ('crear_Actividad/', crearActividad, name = "crear_Actividad"),
     path ('editar_Actividad/<int:id>', editarActividad, name = "editar_Actividad"),
+    path ('eliminar_Actividad/<int:id>', eliminarActividad, name = "eliminar_Actividad"),
 ]
