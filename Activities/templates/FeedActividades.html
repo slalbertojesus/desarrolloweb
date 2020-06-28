@@ -24,8 +24,9 @@
   <td>{{ actividad.fechaEntrega }}</td>
   <td>{{ actividad.estado }}</td>
   <td>{{ actividad.id }}</td>
-  <td>  <button type="button" class="btn btn-danger">Modificar</button> </td>
-  <td>  <button type="button" class="btn btn-danger">Eliminar</button> </td>
+  
+  <td>  <button type="button" class="btn btn-danger"> <a href={% url 'editar_Actividad' id=actividad.id %}>Modificar</button> </td>
+  <td>  <button type="button" class="btn btn-danger"><a href={% url 'eliminar_Actividad' id=actividad.id %}>Eliminar</button> </td>
 
 </tr>   
     
