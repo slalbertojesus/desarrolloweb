@@ -25,5 +25,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('FeedActividades/', MostrarActividades, name = "FeedActividades"),
     path ('crear_Actividad/', crearActividad, name = "crear_Actividad"),
-    path ('editar_Actividad/(?P<id>\d+)/', editarActividad, name = "editar_Actividad"),
+    path ('editar_Actividad/<int:id>', editarActividad, name = "editar_Actividad"),
 ]

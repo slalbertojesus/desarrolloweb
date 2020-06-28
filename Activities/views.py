@@ -34,4 +34,4 @@ def editarActividad(request, id):
         if form.is_valid():
             form.save()
         return redirect('FeedActividades')
-    return render(request,'/editar_Actividad.html', {'form': form})
+    return render(request,'editar_Actividad.html', {'form': form})
