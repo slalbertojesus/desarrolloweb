@@ -11,22 +11,34 @@
 {% block real_content %}
 
 <div>
-<h1 align = center> Actividades </h1>
+<h1 align = center> Actividades  </h1>  
+
+<h2 align = right> <button type="button" class ="btn btn-success btn-lg"> <a href={% url 'crear_Actividad' %} style="color:white">Agregar</a> </button> </h2>
 <div 
      margin = 50px;
      align = center
         >
-<table>
+<table WIDTH="90%">
+<tr>
+  <td>Nombre</td>
+  <td>Descripción</td>
+  <td>Fecha de entrega</td>
+  <td>Status</td>
+  <td>Id</td>
+  
+ 
+</tr>   
 {% for actividad in actividades %}
+   
   <tr>
   <td>{{ actividad.nombre }}</td>
   <td>{{ actividad.descripcion }}</td>
   <td>{{ actividad.fechaEntrega }}</td>
   <td>{{ actividad.estado }}</td>
   <td>{{ actividad.id }}</td>
-  
-  <td>  <button type="button" class="btn btn-danger"> <a href={% url 'editar_Actividad' id=actividad.id %}>Modificar</button> </td>
-  <td>  <button type="button" class="btn btn-danger"><a href={% url 'eliminar_Actividad' id=actividad.id %}>Eliminar</button> </td>
+  <td>   <button type="button" class="btn btn-success" > <a href={% url 'actividadEstado' id=actividad.id %} style="color:white">Realizada  </button> </td>
+  <td>   <button type="button" class="btn btn-dark" > <a href={% url 'editar_Actividad' id=actividad.id %} style="color:white">Modificar  </button> </td>
+  <td>  <button type="button" class="btn btn-danger"> <a href={% url 'eliminar_Actividad' id=actividad.id %} style="color:white">Eliminar</button> </td>
 
 </tr>   
     

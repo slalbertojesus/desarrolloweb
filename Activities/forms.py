@@ -9,5 +9,6 @@ class ActividadForm(forms.ModelForm):
                     "nombre",
                     "descripcion",
                     "fechaEntrega",
-                    "account",
+                    
+                    
                     )

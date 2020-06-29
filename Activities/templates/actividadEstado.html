@@ -2,7 +2,7 @@
 
 {% load static %}
 
-{% block title %}Editar actividad{% endblock %}
+{% block title %}Cambiar estado{% endblock %}
 
 {% block style_base %}
 
@@ -10,7 +10,7 @@
 
 {% block real_content %}
 <head>
-    <title>Eliminar actividad</title>
+    <title>Actualizar estado</title>
     <meta charset="utf-8" />
     <meta name="viewport">
 </head>
@@ -24,8 +24,8 @@
         <br>
         <br>
         <br>
-        <h2 align = center> ¿Estas seguro de eliminar el objeto? {{ actividad.nombre }} <h2>
-        <h2 align = center> <button   type = "submit" class ="btn btn-success"> Eliminar </button>
+        <h2 align = center> ¿Estas seguro de guardar la actividad? {{ actividad.nombre }} <h2>
+        <h2 align = center> <button   type = "submit" class ="btn btn-success"> Guardar </button>
         <button class ="btn btn-danger"> <a href="{% url 'FeedActividades' %}" style="color:white"> Cancelar </a> </button> </h2>
     </form>
 </body>

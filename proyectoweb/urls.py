@@ -20,6 +20,7 @@ from Activities.views import MostrarActividades
 from Activities.views import crearActividad
 from Activities.views import editarActividad
 from Activities.views import eliminarActividad
+from Activities.views import realizarActividad
 
 urlpatterns = [
     path('', include('accounts.urls')),
@@ -28,4 +29,5 @@ urlpatterns = [
     path ('crear_Actividad/', crearActividad, name = "crear_Actividad"),
     path ('editar_Actividad/<int:id>', editarActividad, name = "editar_Actividad"),
     path ('eliminar_Actividad/<int:id>', eliminarActividad, name = "eliminar_Actividad"),
+    path ('actividadEstado/<int:id>', realizarActividad, name = "actividadEstado"),
 ]
