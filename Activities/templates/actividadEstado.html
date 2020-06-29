@@ -16,18 +16,18 @@
 </head>
  
 <body>
+<div class="card  bg-info mb-3" style="width:40%";">
+  <div class="card-header"> 
+    <div class="card-body">
     <form action="" method="post">
         {% csrf_token %}
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <h2 align = center> ¿Estas seguro de guardar la actividad? {{ actividad.nombre }} <h2>
+        <h2 align = center> ¿Estas seguro de realizar la actividad {{ actividad.nombre }} ? <h2>
         <h2 align = center> <button   type = "submit" class ="btn btn-success"> Guardar </button>
         <button class ="btn btn-danger"> <a href="{% url 'FeedActividades' %}" style="color:white"> Cancelar </a> </button> </h2>
     </form>
+    </div>
+  </div>
+</div>
 </body>
 
 {% endblock %}

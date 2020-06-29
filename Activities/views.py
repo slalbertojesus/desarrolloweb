@@ -57,12 +57,12 @@ def eliminarActividad (request, id):
     if request.method == 'POST':
         actividad.delete()
         return redirect('FeedActividades')
-    return render(request,'eliminar_actividad.html', {'aactividad':actividad})
+    return render(request,'eliminar_actividad.html', {'actividad':actividad})
     
 def realizarActividad (request, id):   
     
     actividad = Actividad.objects.get(id = id)
-    print("ks")
+   
     if request.method == 'POST':
         print(actividad.fechaEntrega)
         if actividad.fechaEntrega < date.today():

@@ -11,13 +11,13 @@
 {% block real_content %}
 
 <div>
-<h1 align = center> Actividades  </h1>  
+<h1 align = center> Bienvenido a CIIES </h1>  
 
-<h2 align = right> <button type="button" class ="btn btn-success btn-lg"> <a href={% url 'crear_Actividad' %} style="color:white">Agregar</a> </button> </h2>
-<div 
-     margin = 50px;
-     align = center
-        >
+
+<div class="card  bg-info mb-3" style="width:90%";">
+  <div class="card-header"> <h1 align =center> Actividades</h1> 
+  <h2 align = right> <button type="button" class ="btn btn-success btn-lg"> <a href={% url 'crear_Actividad' %} style="color:white">Agregar</a> </button> </h2></div>
+  <div class="card-body">
 <table WIDTH="90%">
 <tr>
   <td>Nombre</td>
@@ -45,4 +45,8 @@
 {% endfor %}
 </table>
 </div>
+  </div>
+</div>
+
+
 {% endblock %}

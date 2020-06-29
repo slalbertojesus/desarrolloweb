@@ -1,5 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'accounts/base.html' %}
+
+{% load static %}
+
+{% block title %}Actividades{% endblock %}
+
+{% block style_base %}
+
+{% endblock %}
+
+{% block real_content %}
 <head>
     <title>Agregar actividad</title>
     <meta charset="utf-8" />
@@ -7,10 +16,16 @@
 </head>
  
 <body>
+    <div class="card  bg-info mb-3" style="width:40%";">
+  <div class="card-header"> 
+    <div class="card-body">
     <form action="" method="post">
         {% csrf_token %}
         {{form.as_p }}
-        <button type = "submit class="btn btn-outline-success""> Crear </button>
+       <h1 align =center> <button type = "submit" class="btn btn-success"> Crear </button> </h1>
     </form>
+    </div>
+  </div>
+</div>
 </body>
-</html>
+{% endblock %}
