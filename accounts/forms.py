@@ -3,12 +3,38 @@ from django.contrib.auth.forms import UserCreationForm, SetPasswordForm
 from accounts.models import EmailConfirmed, Account
 from django import forms
 from django.forms import ModelForm
-from bootstrap_modal_forms.forms import BSModalForm
+from bootstrap_modal_forms.forms import BSModalForm, BSModalModelForm
 
-class AccountForm(BSModalForm):
+class AccountForm(BSModalModelForm):
 	class Meta:
 		model = Account
-		exclude = ['first_name']
+		exclude = ['last_login', 'date_joined', 'is_superuser',
+		 'groups', 'user_permissions', 'is_staff']
+
+		widgets = {
+            'username': forms.TextInput(attrs={'class': 'form-control','placeholder': 'Usuario', 'required':'True'}),
+            'email': forms.TextInput(attrs={'class': 'form-control','placeholder': 'Correo','required':'True'}),
+    	}
+
+		error_messages = {
+            'username': {
+				"unique": "El usuario ya existe",
+                'required': "El usuario es obligatorio",
+                'invalid': "El usuario es inválido",
+				},
+			'email': {
+				"unique": "El correo ya existe",
+                'required': "El correo es obligatorio",
+                'invalid': "El correo es inválido",
+				},
+		}
+
+class AccountUpdateForm(BSModalModelForm):
+	class Meta:
+		model = Account
+		exclude = ['last_login', 'date_joined', 'is_superuser',
+		 'groups', 'user_permissions', 'is_staff', 'is_active', 'password']
+
 
 
 class SetCustomPasswordForm(SetPasswordForm):
