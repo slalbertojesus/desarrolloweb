@@ -3,6 +3,7 @@ import random
 import hashlib
 import json
 
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import SetPasswordForm
@@ -138,6 +139,7 @@ def restore_password_key_view(request, password_key_provided):
     return render(request, 'accounts/password_forgotten.html', context)
 
 #Needs to be authenticated
+@login_required
 def accounts_view(request):
     accounts = User.objects.all()
     context = {'accounts':accounts}
