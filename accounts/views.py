@@ -138,7 +138,6 @@ def restore_password_key_view(request, password_key_provided):
     context = {'form':form, "message": message}
     return render(request, 'accounts/password_forgotten.html', context)
 
-#Needs to be authenticated
 @login_required
 def accounts_view(request):
     accounts = User.objects.all()
@@ -163,7 +162,6 @@ class DeleteAccount(BSModalDeleteView):
     success_message = 'Se ha eliminado con éxito'
     template_name = 'accounts/modals/delete_modal.html'
     success_url = reverse_lazy('accounts:accounts')
-
 
 def logout_user(request):
     logout(request)
