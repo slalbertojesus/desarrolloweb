@@ -8,7 +8,32 @@ from bootstrap_modal_forms.forms import BSModalForm, BSModalModelForm
 class AccountForm(BSModalModelForm):
 	class Meta:
 		model = Account
-		exclude = ['first_name', 'last_login', 'date_joined', 'is_superuser', 'groups', 'user_permissions', 'is_staff', 'is_active']
+		exclude = ['last_login', 'date_joined', 'is_superuser',
+		 'groups', 'user_permissions', 'is_staff']
+
+		widgets = {
+            'username': forms.TextInput(attrs={'class': 'form-control','placeholder': 'Usuario', 'required':'True'}),
+            'email': forms.TextInput(attrs={'class': 'form-control','placeholder': 'Correo','required':'True'}),
+    	}
+
+		error_messages = {
+            'username': {
+				"unique": "El usuario ya existe",
+                'required': "El usuario es obligatorio",
+                'invalid': "El usuario es inválido",
+				},
+			'email': {
+				"unique": "El correo ya existe",
+                'required': "El correo es obligatorio",
+                'invalid': "El correo es inválido",
+				},
+		}
+
+class AccountUpdateForm(BSModalModelForm):
+	class Meta:
+		model = Account
+		exclude = ['last_login', 'date_joined', 'is_superuser',
+		 'groups', 'user_permissions', 'is_staff', 'is_active', 'password']
 
 
 

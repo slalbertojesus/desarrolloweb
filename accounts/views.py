@@ -18,7 +18,7 @@ from accounts.models import EmailConfirmed, PasswordReset
 
 
 from .models import Account 
-from .forms import AccountForm, SetCustomPasswordForm, CreateUserForm
+from .forms import AccountForm, AccountUpdateForm, SetCustomPasswordForm, CreateUserForm
 
 User = get_user_model()
 
@@ -151,7 +151,7 @@ class CreateAccount(BSModalCreateView):
  
 class UpdateAccount(BSModalUpdateView):
     model = User
-    form_class = AccountForm
+    form_class = AccountUpdateForm
     success_message = 'Se ha actualizado con éxito'
     template_name = 'accounts/modals/update_modal.html'
     success_url = reverse_lazy('accounts:accounts')
