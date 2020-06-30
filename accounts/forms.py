@@ -8,7 +8,8 @@ from bootstrap_modal_forms.forms import BSModalForm, BSModalModelForm
 class AccountForm(BSModalModelForm):
 	class Meta:
 		model = Account
-		exclude = ['first_name']
+		exclude = ['first_name', 'last_login', 'date_joined', 'is_superuser', 'groups', 'user_permissions', 'is_staff', 'is_active']
+
 
 
 class SetCustomPasswordForm(SetPasswordForm):
