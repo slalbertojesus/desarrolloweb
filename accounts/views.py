@@ -3,6 +3,7 @@ import random
 import hashlib
 import json
 
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import SetPasswordForm
@@ -22,7 +23,7 @@ from accounts.models import EmailConfirmed, PasswordReset
 
 
 from .models import Account 
-from .forms import AccountForm, SetCustomPasswordForm, CreateUserForm
+from .forms import AccountForm, AccountUpdateForm, SetCustomPasswordForm, CreateUserForm
 
 User = get_user_model()
 
@@ -50,7 +51,10 @@ def display_login(request):
         if request.method == 'POST':
             username = request.POST.get('username')
             password = request.POST.get('password')
+            print(username)
+            print(password)
             user = authenticate(request, username = username, password = password)
+            print(user)
             if user is not None: 
                 login(request, user)
                 return redirect('/')
@@ -141,23 +145,21 @@ def restore_password_key_view(request, password_key_provided):
     context = {'form':form, "message": message}
     return render(request, 'accounts/password_forgotten.html', context)
 
-#Needs to be authenticated
+@login_required
 def accounts_view(request):
     accounts = User.objects.all()
     context = {'accounts':accounts}
     return render(request, 'accounts/accounts_crud.html', context)
 
 class CreateAccount(BSModalCreateView):
-    model = User
     form_class = AccountForm
     success_message = 'Se ha creado un usuario con éxito'
     template_name = 'accounts/modals/create_modal.html'
     success_url = reverse_lazy('accounts:accounts')
-
  
 class UpdateAccount(BSModalUpdateView):
     model = User
-    form_class = AccountForm
+    form_class = AccountUpdateForm
     success_message = 'Se ha actualizado con éxito'
     template_name = 'accounts/modals/update_modal.html'
     success_url = reverse_lazy('accounts:accounts')
@@ -167,7 +169,6 @@ class DeleteAccount(BSModalDeleteView):
     success_message = 'Se ha eliminado con éxito'
     template_name = 'accounts/modals/delete_modal.html'
     success_url = reverse_lazy('accounts:accounts')
-
 
 def logout_user(request):
     logout(request)

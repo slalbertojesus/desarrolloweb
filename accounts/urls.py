@@ -25,7 +25,7 @@ from .views import (
 app_name = 'accounts'
 
 urlpatterns = [
-	path('', display_home, name="home"),
+	path('home/', display_home, name="home"),
 	path('login/', display_login, name="login"),
 	path('logout/', logout_user, name="logout"),
 

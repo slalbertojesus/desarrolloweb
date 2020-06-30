@@ -3,13 +3,19 @@ from django.contrib.auth.forms import UserCreationForm, SetPasswordForm
 from accounts.models import EmailConfirmed, Account
 from django import forms
 from django.forms import ModelForm
-from bootstrap_modal_forms.forms import BSModalForm
+from bootstrap_modal_forms.forms import BSModalForm, BSModalModelForm
 
-class AccountForm(BSModalForm):
+class AccountForm(BSModalModelForm):
 	class Meta:
 		model = Account
-		exclude = ['first_name']
+		exclude = ['last_login', 'date_joined', 'is_superuser',
+		 'groups', 'user_permissions', 'is_staff']
 
+class AccountUpdateForm(BSModalModelForm):
+	class Meta:
+		model = Account
+		exclude = ['last_login', 'date_joined', 'is_superuser',
+		 'groups', 'user_permissions', 'is_staff', 'is_active', 'password']
 
 class SetCustomPasswordForm(SetPasswordForm):
 	error_messages = {
