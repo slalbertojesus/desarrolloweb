@@ -6,14 +6,18 @@ import json
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import SetPasswordForm
-from django.shortcuts import render, redirect, Http404
+from django.shortcuts import render
+from django.shortcuts import redirect
+from django.shortcuts import Http404
 from django.contrib.auth import get_user_model
 from django.views.generic.edit import UpdateView, DeleteView
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 
-from bootstrap_modal_forms.generic import BSModalDeleteView, BSModalUpdateView, BSModalCreateView, BSModalDeleteView
-
+from bootstrap_modal_forms.generic import BSModalDeleteView 
+from bootstrap_modal_forms.generic import BSModalUpdateView
+from bootstrap_modal_forms.generic import  BSModalCreateView
+from bootstrap_modal_forms.generic import BSModalDeleteView
 from accounts.models import EmailConfirmed, PasswordReset
 
 
