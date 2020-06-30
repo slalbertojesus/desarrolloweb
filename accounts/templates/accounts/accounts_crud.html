@@ -1,98 +1,116 @@
 {% extends 'accounts/base.html' %}
-
-{% load static %}
-
-{% block title %}Administración de usuarios{% endblock %}
-
+{% load static %} 
+{% block title%}
+Administración de usuarios
+{% endblock %} 
 {% block style_base %}
-<link rel="stylesheet" type="text/css" href="{% static 'accounts/accounts_crud.css' %}">
-{% endblock %}
-
-{% block real_content %}
-
-{% include "accounts/_modal.html" %}
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{% static 'accounts/accounts_crud.css' %}"
+/>
+{% endblock %} {% block real_content %} {% include "accounts/_modal.html" %}
 
 <div class="table-cont">
-    <div class="table-title">
-        <nav class="nav nav-pills nav-fill">
-            <H2>Administración de <b>usuarios</b> </H2>
-            <button type="button" class="btn btn-danger">Eliminar</button>
+  <div class="table-title">
+    <nav class="nav nav-pills nav-fill">
+      <h2>Administración de <b>usuarios</b></h2>
+      <button type="button" class="btn btn-danger">Eliminar</button>
 
-            <button type="button" class="add-account btn btn-sm btn-success">Agregar</button> 
-        </nav>
-    </div>
-    <table class="table table-bordered table-dark table-hover">
-        {% for account in accounts %}
-        {% if forloop.first %}
-        <thead class="thead-dark">
-            <tr>
-                <th scope="col">
-                    <input type="checkbox" id="checkbox" name="get-all" value="check-all">
-                </th>
-                <th scope="col">Estado</th>
-                <th scope="col">Usuario</th>
-                <th scope="col">Nombre</th>
-                <th scope="col">Correo</th>
-                <th scope="col">Rol</th>
-                <th scope="col">Acciones disponibles</th>
-            </tr>
-        </thead>
+      <button type="button" class="add-account btn btn-sm btn-success">
+        Agregar
+      </button>
+    </nav>
+  </div>
+  <table class="table table-bordered table-dark table-hover">
+    {% for account in accounts %} {% if forloop.first %}
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">
+          <input
+            type="checkbox"
+            id="checkbox"
+            name="get-all"
+            value="check-all"
+          />
+        </th>
+        <th scope="col">Estado</th>
+        <th scope="col">Usuario</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Correo</th>
+        <th scope="col">Rol</th>
+        <th scope="col">Acciones disponibles</th>
+      </tr>
+    </thead>
+    {% endif %}
+    <div class="table-row">
+      <tr>
+        <td>
+          <input
+            type="checkbox"
+            id="checkbox"
+            name="{{ account.username }}"
+            value="check"
+          />
+          {% if account.is_active == False %}
+        </td>
+
+        <td class="bg-warning">Cuenta sin activar</td>
+        {% else %}
+        <td class="bg-success">Cuenta activada</td>
         {% endif %}
-        <div class="table-row">
-            <tr>
-                <td>
-                    <input type="checkbox" id="checkbox" name='{{ account.username }}' value="check">
-                {% if account.is_active == False %}
-                <td class="bg-warning">Cuenta sin activar</td>
-                {% else %}
-                <td class="bg-success">Cuenta activada</td>
-                {% endif %} 
-                <td>{{ account.username }}</td>
-                <td>{{ account.first_name}}</td>
-                <td>{{ account.email }}</td>
-                {% if account.is_superuser ==  False %}
-                <td> Invitado</td>
-                {% else %}
-                <td> Administrador</td>
-                {% endif %}
-                <td>
+        <td>{{ account.username }}</td>
+        <td>{{ account.first_name}}</td>
+        <td>{{ account.email }}</td>
+        {% if account.is_superuser == False %}
+        <td>Invitado</td>
+        {% else %}
+        <td>Administrador</td>
+        {% endif %}
+        <td>
+          <button
+            type="button"
+            class="update-account btn btn-sm btn-warning"
+            data-id="{% url 'accounts:update' account.pk %}"
+          >
+            <span class="fa fa-pencil"></span>
+          </button>
 
-                    <button type="button" class="update-account btn btn-sm btn-warning" data-id="{% url 'accounts:update' account.pk %}">
-                        <span class="fa fa-pencil"></span>
-                      </button> 
+          <button
+            type="button"
+            class="delete-account btn btn-sm btn-danger"
+            data-id="{% url 'accounts:delete' account.pk %}"
+          >
+            <span class="fa fa-trash"></span>
+          </button>
 
-                      <button type="button" class="delete-account btn btn-sm btn-danger" data-id="{% url 'accounts:delete' account.pk %}">
-                        <span class="fa fa-trash"></span>
-                      </button> 
+          <script type="text/javascript">
+            $(function () {
+              //Agrega una nueva cuenta
+              $(".add-account").modalForm({
+                formURL: "{% url 'accounts:register' %}",
+              });
 
-                    <script type="text/javascript">
-                        $(function () {
+              //Actualiza la cuenta seleccionada
+              $(".update-account").each(function () {
+                $(this).modalForm({
+                  formURL: $(this).data("id"),
+                });
+              });
 
-                            //Agrega una nueva cuenta
-                            $(".add-account").modalForm({ formURL: "{% url 'accounts:register' %}"});
-                            
-
-                            //Actualiza la cuenta seleccionada
-                            $(".update-account").each(function () {
-                                $(this).modalForm({
-                                    formURL: $(this).data('id')
-                                });
-                            })
-
-                            //Elimina la cuenta seleccionada
-                            $(".delete-account").each(function () {
-                                $(this).modalForm({
-                                    formURL: $(this).data('id')
-                                });
-                            })
-                        });
-
-                    </script>
-                </td>
-            </tr>
-        </div>
-        {% endfor %}
-    </table>
+              //Elimina la cuenta seleccionada
+              $(".delete-account").each(function () {
+                $(this).modalForm({
+                  formURL: $(this).data("id"),
+                });
+              });
+            });
+          </script>
+        </td>
+      </tr>
+    </div>
+    {% endfor %}
+  </table>
 </div>
 
 {% endblock %}

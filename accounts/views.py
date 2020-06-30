@@ -144,12 +144,10 @@ def accounts_view(request):
     return render(request, 'accounts/accounts_crud.html', context)
 
 class CreateAccount(BSModalCreateView):
-    model = User
     form_class = AccountForm
     success_message = 'Se ha creado un usuario con éxito'
     template_name = 'accounts/modals/create_modal.html'
     success_url = reverse_lazy('accounts:accounts')
-
  
 class UpdateAccount(BSModalUpdateView):
     model = User
