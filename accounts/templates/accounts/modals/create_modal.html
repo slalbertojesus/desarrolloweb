@@ -21,10 +21,6 @@
 
     {% for field in form %}
       <div class="form-group">
-        {% if forloop.first or forloop.second%}
-        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-        {% render_field field class="form-control" type="password" %}
-        {% endif %}
         <label for="{{ field.id_for_label }}">{{ field.label }}</label>
         {% render_field field class="form-control" placeholder=field.label %}
         <div class="{% if field.errors %} invalid{% endif %}">
