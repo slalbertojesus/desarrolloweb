@@ -27,7 +27,6 @@
     <a class="dropdown-item" href={% url 'FeedActividades' campo='fechaEntrega' %} >Fecha de entrega</a>
     <a class="dropdown-item" href={% url 'FeedActividades' campo='estado' %} >Status</a>
     <a class="dropdown-item" href={% url 'FeedActividades' campo='id' %} >Orden de creación</a>
-    <a class="dropdown-item" href={% url 'FeedActividades' campo='fechaRealizacion' %} >Fecha de realización</a>
     <div ></div>
    
   </div>
@@ -41,7 +40,8 @@
   <td>   Descripción</td>
   <td>   Fecha de entrega</td>
   <td>   Status</td>
-  <td>   Fecha de realización </td>
+
+  
  
 </tr>   
 {% for actividad in actividades %}
@@ -51,7 +51,7 @@
   <td > {{ actividad.descripcion }}</td>
   <td >{{ actividad.fechaEntrega }}</td>
   <td >{{ actividad.estado }}</td>
-  <td >{{ actividad.fechaRealizacion }}</td>
+
   <td>   <button type="button" class="btn btn-success" > <a href={% url 'actividadEstado' id=actividad.id %} style="color:white">Realizada  </button> </td>
   <td>   <button type="button" class="btn btn-dark" > <a href={% url 'editar_Actividad' id=actividad.id %} style="color:white">Modificar  </button> </td>
   <td>  <button type="button" class="btn btn-danger"> <a href={% url 'eliminar_Actividad' id=actividad.id %} style="color:white">Eliminar</button> </td>
