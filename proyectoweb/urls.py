@@ -21,6 +21,7 @@ from Activities.views import crearActividad
 from Activities.views import editarActividad
 from Activities.views import eliminarActividad
 from Activities.views import realizarActividad
+from Report.views import Pdf
 
 urlpatterns = [
     path('', include('accounts.urls')),
@@ -30,4 +31,5 @@ urlpatterns = [
     path ('editar_Actividad/<int:id>', editarActividad, name = "editar_Actividad"),
     path ('eliminar_Actividad/<int:id>', eliminarActividad, name = "eliminar_Actividad"),
     path ('actividadEstado/<int:id>', realizarActividad, name = "actividadEstado"),
+    path('render/pdf/', Pdf.as_view(),name = "render/pdf"),
 ]

@@ -5,6 +5,7 @@ from .models import EstadoActividad
 from accounts.models import Account 
 from .forms import ActividadForm
 from datetime import date
+from datetime import datetime
 
 # Create your views here.
 def MostrarActividades(request, campo):
@@ -12,10 +13,11 @@ def MostrarActividades(request, campo):
     for actividad in actividades:
         if actividad.fechaEntrega < date.today():
             if actividad.estado.estado == "Sin realizar":
-                print(actividad.estado)
+                
                 actividad.estado= EstadoActividad.objects.get(id=2)
                 actividad.save()
         
+            
     return render(request, "FeedActividades.html", {"actividades":actividades})
 
 
@@ -63,7 +65,8 @@ def realizarActividad (request, id):
     actividad = Actividad.objects.get(id = id)
    
     if request.method == 'POST':
-        print(actividad.fechaEntrega)
+       
+        actividad.fechaRealizacion= date.today()
         if actividad.fechaEntrega < date.today():
             actividad.estado = EstadoActividad.objects.get(id=3)
             actividad.save()
