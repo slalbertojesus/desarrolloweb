@@ -7,8 +7,8 @@ from .forms import ActividadForm
 from datetime import date
 
 # Create your views here.
-def MostrarActividades(request):
-    actividades = Actividad.objects.filter(account = request.user)
+def MostrarActividades(request, campo):
+    actividades = Actividad.objects.filter(account = request.user).order_by(campo)
     for actividad in actividades:
         if actividad.fechaEntrega < date.today():
             if actividad.estado.estado == "Sin realizar":
@@ -17,6 +17,7 @@ def MostrarActividades(request):
                 actividad.save()
         
     return render(request, "FeedActividades.html", {"actividades":actividades})
+
 
 
 
@@ -31,9 +32,7 @@ def crearActividad(request):
             actividad.account = request.user
             actividad.estado = EstadoActividad.objects.get(id = 1)
             actividad.save()
-            
-            
-            return redirect('FeedActividades')
+            return redirect('FeedActividades', campo="nombre")
         else:
             form = ActividadForm()
             
@@ -49,14 +48,14 @@ def editarActividad(request, id):
         form = ActividadForm(request.POST, instance = actividad)
         if form.is_valid():
             form.save()
-        return redirect('FeedActividades')
+        return redirect('FeedActividades', campo="nombre")
     return render(request,'editar_Actividad.html', {'form': form})
 
 def eliminarActividad (request, id):
     actividad = Actividad.objects.get(id = id)
     if request.method == 'POST':
         actividad.delete()
-        return redirect('FeedActividades')
+        return redirect('FeedActividades', campo="nombre")
     return render(request,'eliminar_actividad.html', {'actividad':actividad})
     
 def realizarActividad (request, id):   
@@ -68,9 +67,9 @@ def realizarActividad (request, id):
         if actividad.fechaEntrega < date.today():
             actividad.estado = EstadoActividad.objects.get(id=3)
             actividad.save()
-            return redirect('FeedActividades')
+            return redirect('FeedActividades', campo="nombre")
         if actividad.fechaEntrega > date.today():
             actividad.estado = EstadoActividad.objects.get(id=4)
             actividad.save()
-            return redirect('FeedActividades')
+            return redirect('FeedActividades', campo="nombre")
     return render(request, "actividadEstado.html", {"actividad":actividad})

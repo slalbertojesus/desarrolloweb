@@ -54,6 +54,7 @@ p {
 
 h1,h2,h3,h4,h5 {
     font-weight: bold;
+    
 }
 
 h1 {
@@ -61,6 +62,7 @@ h1 {
     font-weight: 300;
     font-size: 20px;
     color: #666;
+    
 }
 
 h2 {
@@ -244,6 +246,7 @@ p img, h1 img, h2 img, h3 img, h4 img, td img {
 table {
     border-collapse: collapse;
     border-color: #ccc;
+    
 }
 
 td, th {

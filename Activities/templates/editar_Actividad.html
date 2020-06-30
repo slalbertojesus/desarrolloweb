@@ -16,13 +16,16 @@
 </head>
  
 <body>
+<div class="card  bg-info mb-3" style="width:40%";">
+  <div class="card-header"> 
+    <div class="card-body">
     <form action="" method="post">
         {% csrf_token %}
        
         {{form.as_p }}
         <h2 align = center>
         <button type = "submit"  class ="btn btn-success" > Editar </button> 
-        <button class ="btn btn-danger"> <a href="{% url 'FeedActividades' %}" style="color:white"> Cancelar </a> </button> </h2>
+        <button class ="btn btn-danger"> <a href="{% url 'FeedActividades' campo="nombre" %}" style="color:white"> Cancelar </a> </button> </h2>
        
     </form>
     </div>

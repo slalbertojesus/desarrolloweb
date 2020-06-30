@@ -25,7 +25,7 @@ from Activities.views import realizarActividad
 urlpatterns = [
     path('', include('accounts.urls')),
     path('admin/', admin.site.urls),
-    path('FeedActividades/', MostrarActividades, name = "FeedActividades"),
+    path('FeedActividades/<str:campo>', MostrarActividades, name = "FeedActividades"),
     path ('crear_Actividad/', crearActividad, name = "crear_Actividad"),
     path ('editar_Actividad/<int:id>', editarActividad, name = "editar_Actividad"),
     path ('eliminar_Actividad/<int:id>', eliminarActividad, name = "eliminar_Actividad"),

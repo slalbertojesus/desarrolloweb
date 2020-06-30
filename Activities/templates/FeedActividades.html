@@ -2,11 +2,11 @@
 
 {% load static %}
 
-{% block title %}Actividades{% endblock %}
-
 {% block style_base %}
-
+<link rel="stylesheet" type="text/css" href="{% static 'Activities/activities.css' %}">
 {% endblock %}
+
+{% block title %}Actividades{% endblock %}
 
 {% block real_content %}
 
@@ -15,27 +15,42 @@
 
 
 <div class="card  bg-info mb-3" style="width:90%";">
-  <div class="card-header"> <h1 align =center> Actividades</h1> 
-  <h2 align = right> <button type="button" class ="btn btn-success btn-lg"> <a href={% url 'crear_Actividad' %} style="color:white">Agregar</a> </button> </h2></div>
+  <div class="card-header"> <h1 align =center> <font color ="#f8f9fa"> Actividades</h1> 
+  <h2 align = right> 
+  <div class="btn-group">
+  <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+   Filtrar
+  </button>
+  <div class="dropdown-menu">
+    <a class="dropdown-item" href={% url 'FeedActividades' campo='nombre' %} >Nombre</a>
+    <a class="dropdown-item" href={% url 'FeedActividades' campo='descripcion' %} >Descripción</a>
+    <a class="dropdown-item" href={% url 'FeedActividades' campo='fechaEntrega' %} >Fecha de entrega</a>
+    <a class="dropdown-item" href={% url 'FeedActividades' campo='estado' %} >Status</a>
+    <a class="dropdown-item" href={% url 'FeedActividades' campo='id' %} >Orden de creación</a>
+    <div ></div>
+   
+  </div>
+</div>
+  <button type="button" class ="btn btn-success btn-lg"> <a href={% url 'crear_Actividad' %} style="color:white">Agregar</a> </button> </h2></div>
   <div class="card-body">
 <table WIDTH="90%">
 <tr>
-  <td>Nombre</td>
-  <td>Descripción</td>
-  <td>Fecha de entrega</td>
-  <td>Status</td>
-  <td>Id</td>
+  <td class="colorFila" > Nombre</td>
+  <td>   Descripción</td>
+  <td>   Fecha de entrega</td>
+  <td>   Status</td>
+
   
  
 </tr>   
 {% for actividad in actividades %}
    
   <tr>
-  <td>{{ actividad.nombre }}</td>
-  <td>{{ actividad.descripcion }}</td>
-  <td>{{ actividad.fechaEntrega }}</td>
-  <td>{{ actividad.estado }}</td>
-  <td>{{ actividad.id }}</td>
+  <td class="colorFila" > {{ actividad.nombre }}</td>
+  <td > {{ actividad.descripcion }}</td>
+  <td >{{ actividad.fechaEntrega }}</td>
+  <td >{{ actividad.estado }}</td>
+
   <td>   <button type="button" class="btn btn-success" > <a href={% url 'actividadEstado' id=actividad.id %} style="color:white">Realizada  </button> </td>
   <td>   <button type="button" class="btn btn-dark" > <a href={% url 'editar_Actividad' id=actividad.id %} style="color:white">Modificar  </button> </td>
   <td>  <button type="button" class="btn btn-danger"> <a href={% url 'eliminar_Actividad' id=actividad.id %} style="color:white">Eliminar</button> </td>

@@ -22,9 +22,9 @@
     <form action="" method="post">
         {% csrf_token %}
       
-        <h2 align = center> ¿Estas seguro de eliminar el objeto {{ actividad.nombre }} ? <h2>
+        <h2 align = center > ¿Estas seguro de eliminar la actividad {{ actividad.nombre }} ? <h2>
         <h2 align = center> <button   type = "submit" class ="btn btn-success"> Eliminar </button>
-        <button class ="btn btn-danger"> <a href="{% url 'FeedActividades' %}" style="color:white"> Cancelar </a> </button> </h2>
+        <button class ="btn btn-danger"> <a href="{% url 'FeedActividades'  campo="nombre" %}" style="color:white"> Cancelar </a> </button> </h2>
     </form>
     </div>
   </div>
