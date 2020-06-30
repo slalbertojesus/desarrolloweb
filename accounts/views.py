@@ -3,6 +3,7 @@ import random
 import hashlib
 import json
 
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import SetPasswordForm
@@ -137,18 +138,20 @@ def restore_password_key_view(request, password_key_provided):
     context = {'form':form, "message": message}
     return render(request, 'accounts/password_forgotten.html', context)
 
-#Needs to be authenticated
+@login_required
 def accounts_view(request):
     accounts = User.objects.all()
     context = {'accounts':accounts}
     return render(request, 'accounts/accounts_crud.html', context)
 
+@login_required
 class CreateAccount(BSModalCreateView):
     form_class = AccountForm
     success_message = 'Se ha creado un usuario con éxito'
     template_name = 'accounts/modals/create_modal.html'
     success_url = reverse_lazy('accounts:accounts')
- 
+
+@login_required 
 class UpdateAccount(BSModalUpdateView):
     model = User
     form_class = AccountUpdateForm
@@ -156,6 +159,7 @@ class UpdateAccount(BSModalUpdateView):
     template_name = 'accounts/modals/update_modal.html'
     success_url = reverse_lazy('accounts:accounts')
 
+@login_required
 class DeleteAccount(BSModalDeleteView):
     model = User
     success_message = 'Se ha eliminado con éxito'
