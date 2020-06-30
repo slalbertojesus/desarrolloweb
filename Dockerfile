@@ -9,6 +9,6 @@ WORKDIR /Proyecto
 
 COPY requirements.txt /Proyecto/
 
-RUN pip install --upgrade -r requirements.txt
+RUN pip --no-cache-dir install --upgrade -r requirements.txt
 
 COPY . /Proyecto/ 
