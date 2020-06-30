@@ -13,10 +13,11 @@ def MostrarActividades(request, campo):
     for actividad in actividades:
         if actividad.fechaEntrega < date.today():
             if actividad.estado.estado == "Sin realizar":
-                print(actividad.estado)
+                
                 actividad.estado= EstadoActividad.objects.get(id=2)
                 actividad.save()
         
+            
     return render(request, "FeedActividades.html", {"actividades":actividades})
 
 

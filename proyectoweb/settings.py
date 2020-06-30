@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'bootstrap_modal_forms',
     'accounts',
     'Activities',
+    'Report',
 ]
 
 MIDDLEWARE = [
@@ -94,6 +95,7 @@ WSGI_APPLICATION = 'proyectoweb.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
+
 
 DATABASES = {
     'default': {
