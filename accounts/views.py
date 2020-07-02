@@ -23,7 +23,7 @@ from accounts.models import EmailConfirmed, PasswordReset
 
 
 from .models import Account 
-from .forms import AccountForm, AccountUpdateForm, SetCustomPasswordForm, CreateUserForm, AuthenticationForm
+from .forms import AccountForm, AccountUpdateForm, SetCustomPasswordForm, CreateUserForm, AuthenticationForm, AccountCreationForm
 
 User = get_user_model()
 
@@ -143,7 +143,7 @@ class LogIn(BSModalLoginView):
     extra_context = dict(success_url=reverse_lazy('accounts:home'))
 
 class CreateAccount(BSModalCreateView):
-    form_class = AccountForm
+    form_class = AccountCreationForm
     success_message = 'Se ha creado un usuario con éxito'
     template_name = 'accounts/modals/create_modal.html'
     success_url = reverse_lazy('accounts:accounts')
