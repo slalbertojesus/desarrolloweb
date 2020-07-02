@@ -1,9 +1,14 @@
 from django.forms import ModelForm
-from django.contrib.auth.forms import UserCreationForm, SetPasswordForm
+from django.contrib.auth.forms import UserCreationForm, SetPasswordForm, AuthenticationForm
 from accounts.models import EmailConfirmed, Account
 from django import forms
 from django.forms import ModelForm
 from bootstrap_modal_forms.forms import BSModalForm, BSModalModelForm
+
+class AuthenticationForm(AuthenticationForm):
+    class Meta:
+        model = Account 
+        fields = ['username', 'password']
 
 class AccountForm(BSModalModelForm):
 	class Meta:

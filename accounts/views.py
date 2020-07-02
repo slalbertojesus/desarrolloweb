@@ -15,7 +15,7 @@ from django.views.generic.edit import UpdateView, DeleteView
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 
-from bootstrap_modal_forms.generic import BSModalDeleteView 
+from bootstrap_modal_forms.generic import BSModalLoginView 
 from bootstrap_modal_forms.generic import BSModalUpdateView
 from bootstrap_modal_forms.generic import  BSModalCreateView
 from bootstrap_modal_forms.generic import BSModalDeleteView
@@ -23,7 +23,7 @@ from accounts.models import EmailConfirmed, PasswordReset
 
 
 from .models import Account 
-from .forms import AccountForm, AccountUpdateForm, SetCustomPasswordForm, CreateUserForm
+from .forms import AccountForm, AccountUpdateForm, SetCustomPasswordForm, CreateUserForm, AuthenticationForm
 
 User = get_user_model()
 
@@ -45,23 +45,8 @@ def display_register(request):
     return render(request, 'accounts/register.html', context)
 
 def display_login(request):
-    if request.user.is_authenticated:
-        return redirect('/')
-    else:
-        if request.method == 'POST':
-            username = request.POST.get('username')
-            password = request.POST.get('password')
-            print(username)
-            print(password)
-            user = authenticate(request, username = username, password = password)
-            print(user)
-            if user is not None: 
-                login(request, user)
-                return redirect('/')
-            else: 
-                messages.info(request, 'Usuario o contraseña es incorrecta')
-        context = {}
-        return render(request, 'accounts/login.html', context)
+    context = {}
+    return render(request, 'accounts/login.html', context)
 
 SHA1_RE = re.compile('^[a-f0-9]{40}$')
 
@@ -150,6 +135,12 @@ def accounts_view(request):
     accounts = User.objects.all()
     context = {'accounts':accounts}
     return render(request, 'accounts/accounts_crud.html', context)
+
+class LogIn(BSModalLoginView):
+    authentication_form = AuthenticationForm
+    template_name = 'accounts/modals/login_modal.html'
+    success_message = 'Success: You were successfully logged in.'
+    extra_context = dict(success_url=reverse_lazy('accounts:home'))
 
 class CreateAccount(BSModalCreateView):
     form_class = AccountForm
