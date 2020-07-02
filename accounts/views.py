@@ -139,7 +139,7 @@ def accounts_view(request):
 class LogIn(BSModalLoginView):
     authentication_form = AuthenticationForm
     template_name = 'accounts/modals/login_modal.html'
-    success_message = 'Success: You were successfully logged in.'
+    success_message = 'Se inicio sesión satisfactoriamente.'
     extra_context = dict(success_url=reverse_lazy('accounts:home'))
 
 class CreateAccount(BSModalCreateView):

@@ -17,6 +17,7 @@ from .views import (
 	accounts_view,
 
 	#account_update_view,
+	LogIn,
 	CreateAccount,
 	UpdateAccount,
 	DeleteAccount,
@@ -29,6 +30,7 @@ urlpatterns = [
 	path('login/', display_login, name="login"),
 	path('logout/', logout_user, name="logout"),
 
+    path('logmodal/', LogIn.as_view(), name="logmodal"),
 	path('accounts/activate/<activation_key_provided>', activation_view, name="activation"),
 	path('reset-link/<password_key_provided>', restore_password_key_view, name="passwordkey"),
 	path('restore-password/', restore_password_view, name="restore"),

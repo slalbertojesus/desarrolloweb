@@ -1,35 +1,35 @@
 {% extends 'accounts/base.html' %}
 
 {% block real_content %}
-    <div>
-    </div>
-    <div class="card" style="width: 500px; height: 400px;">
-        <div class="card-header">
-            Bienvenido!
-        </div>
-        <form method="POST">
-            {% csrf_token %}
-            <div class="input-container">
-                <input type="text" class="form-control" placeholder="Usuario" aria-label="Usuario"
-                    aria-describedby="addon-wrapping" name="username" required>
 
-                <input type="password" id="password" class="form-control" placeholder="Contraseña" aria-label="password"
-                    aria-describedby="addon-wrapping" name="password" required>
-            </div>
-
-            <button type="submit" class="btn btn-dark .btn-sm" id="buton-ingresa">Ingresar</button>
-
-            {% for message in messages %}
-					<p id="messages">{{message}}</p>
-                {% endfor %}	
-                	
-            <div class="password-container">
-                <a href="{% url 'accounts:restore' %}">No recuerdo mi contraseña</a>
-            </div>
-        </form>
+<div class="modal fade" tabindex="-1" role="dialog" id="modal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content"></div>
     </div>
+</div>
+
+<div>
+</div>
+<div class="card" style="width: 500px; height: 400px;">
+    <div class="card-header">
+        Bienvenido!
     </div>
+    <button id="login-btn" class="btn btn-dark .btn-sm" id="buton-ingresa">Ingresar</button>
+
+    {% for message in messages %}
+    <p id="messages">{{message}}</p>
+    {% endfor %}
+
+    <div class="password-container">
+        <a href="{% url 'accounts:restore' %}">No recuerdo mi contraseña</a>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function () {
+        $("#login-btn").modalForm({
+            formURL: "{% url 'accounts:logmodal' %}"
+        });
+    });
+</script>
+</div>
 {% endblock %}
-
-
-
