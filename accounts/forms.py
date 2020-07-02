@@ -4,6 +4,13 @@ from accounts.models import EmailConfirmed, Account
 from django import forms
 from django.forms import ModelForm
 from bootstrap_modal_forms.forms import BSModalForm, BSModalModelForm
+from bootstrap_modal_forms.mixins import PopRequestMixin, CreateUpdateAjaxMixin
+
+class AccountCreationForm(PopRequestMixin, CreateUpdateAjaxMixin,
+                             UserCreationForm):
+    class Meta:
+        model = Account
+        fields = ['username', 'password1', 'password2']
 
 class AuthenticationForm(AuthenticationForm):
     class Meta:
