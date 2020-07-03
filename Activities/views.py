@@ -36,8 +36,9 @@ def crearActividad(request):
             actividad.save()
             return redirect('FeedActividades', campo="nombre")
         else:
-            form = ActividadForm()
-            
+            return render(request, 'crear_Actividad.html',{'form':form})    
+        
+    
         return render(request, 'crear_Actividad.html',{'form':form})
 
 def editarActividad(request, id):
@@ -50,8 +51,10 @@ def editarActividad(request, id):
         form = ActividadForm(request.POST, instance = actividad)
         if form.is_valid():
             form.save()
-        return redirect('FeedActividades', campo="nombre")
-    return render(request,'editar_Actividad.html', {'form': form})
+            return redirect('FeedActividades', campo="nombre")
+        else:
+            return render(request, 'editar_Actividad.html',{'form':form}) 
+    return render(request, 'editar_Actividad.html',{'form':form}) 
 
 def eliminarActividad (request, id):
     actividad = Actividad.objects.get(id = id)

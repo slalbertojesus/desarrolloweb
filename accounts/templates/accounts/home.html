@@ -6,6 +6,9 @@
 <a class="btn btn-primary" href="{% url 'FeedActividadesAdmin' campo="nombre" %}">Actividades</a>
 {% else %}
 <h2>Bienvenido a tu cuenta Invitado</h2>
+<h4>Este sistema es para la administración de tus tareas, para comenzar a administrar tus tareas da click en el botón "Actividades"</h4>
+<div align = center>
 <a class="btn btn-primary" href="{% url 'FeedActividades' campo="nombre" %}">Actividades</a>
+</div>
 {% endif %}
 {% endblock %}
