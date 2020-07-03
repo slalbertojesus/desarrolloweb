@@ -14,11 +14,12 @@
     <div class="card-header">
         Bienvenido!
     </div>
+    <div align=center>
+    
+    <img src="https://www.logaster.com/blog/wp-content/uploads/2018/05/LogoMakr.png"/>
     <button id="login-btn" class="btn btn-dark .btn-sm" id="buton-ingresa">Ingresar</button>
-
-    {% for message in messages %}
-    <p id="messages">{{message}}</p>
-    {% endfor %}
+    </div>
+    
 
     <div class="password-container">
         <a href="{% url 'accounts:restore' %}">No recuerdo mi contraseña</a>

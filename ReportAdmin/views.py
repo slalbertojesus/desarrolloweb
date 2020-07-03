@@ -4,17 +4,19 @@ from django.shortcuts import render
 from django.views.generic import View
 from django.utils import timezone
 from Activities.models import *
-from .render import Render
+from Report.render import Render
 
-
-class Pdf(View):
+        
+            
+class Report(View):
 
     def get(self, request):
-        actividades = Actividad.objects.filter(account = request.user)
+        actividades = Actividad.objects.all()
         
         params = {
             
             'actividades': actividades,
             'request': request
         }
-        return Render.render('pdf.html', params)
+        return Render.render('pdfAdmin.html', params)
+
