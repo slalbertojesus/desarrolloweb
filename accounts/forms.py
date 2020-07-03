@@ -10,7 +10,7 @@ class AccountCreationForm(PopRequestMixin, CreateUpdateAjaxMixin,
                              UserCreationForm):
     class Meta:
         model = Account
-        fields = ['username', 'password1', 'password2']
+        fields = ['username', 'password1', 'password2', 'first_name', 'email']
 
 class AuthenticationForm(AuthenticationForm):
     class Meta:
