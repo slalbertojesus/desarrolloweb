@@ -1,0 +1,68 @@
+{% extends 'accounts/base.html' %}
+
+{% load static %}
+
+{% block style_base %}
+<link rel="stylesheet" type="text/css" href="{% static 'Activities/activities.css' %}">
+{% endblock %}
+
+{% block title %}Actividades{% endblock %}
+
+{% block real_content %}
+
+<div>
+<h1 align = center> Bienvenido a CIIES </h1>  
+
+
+<div class="card  bg-info mb-3" style="width:90%";">
+  <div class="card-header"> <h1 align =center> <font color ="#f8f9fa"> Actividades</h1> 
+  <h2 align = right> 
+  <div class="btn-group">
+  <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+   Filtrar
+  </button>
+  <div class="dropdown-menu">
+    <a class="dropdown-item" href={% url 'FeedActividadesAdmin' campo='account' %} >Usuario</a>
+    <a class="dropdown-item" href={% url 'FeedActividadesAdmin' campo='nombre' %} >Nombre</a>
+    <a class="dropdown-item" href={% url 'FeedActividadesAdmin' campo='descripcion' %} >Descripción</a>
+    <a class="dropdown-item" href={% url 'FeedActividadesAdmin' campo='fechaEntrega' %} >Fecha de entrega</a>
+    <a class="dropdown-item" href={% url 'FeedActividadesAdmin' campo='estado' %} >Status</a>
+    <a class="dropdown-item" href={% url 'FeedActividadesAdmin' campo='id' %} >Orden de creación</a>
+    <a class="dropdown-item" href={% url 'FeedActividadesAdmin' campo='fechaRealizacion' %} >Fecha de realización</a>
+    <div ></div>
+   
+  </div>
+</div>
+   <button type="button" class ="btn btn-success btn-lg"> <a href={% url 'render/pdfAdmin' %} style="color:white">Generar PDF</a> </button> 
+  
+  <div class="card-body">
+<table WIDTH="90%">
+<tr>
+  <td > Usuario</td>
+  <td > Nombre</td>
+  <td>   Descripción</td>
+  <td>   Fecha de entrega</td>
+  <td>   Status</td>
+  <td>   Fecha de realización </td>
+ 
+</tr>   
+{% for actividad in actividades %}
+   
+  <tr>
+  <td > {{ actividad.account }}</td>
+  <td > {{ actividad.nombre }}</td>
+  <td > {{ actividad.descripcion }}</td>
+  <td >{{ actividad.fechaEntrega }}</td>
+  <td >{{ actividad.estado }}</td>
+  <td >{{ actividad.fechaRealizacion }}</td>
+  
+</tr>   
+    
+{% endfor %}
+</table>
+</div>
+  </div>
+</div>
+
+
+{% endblock %}

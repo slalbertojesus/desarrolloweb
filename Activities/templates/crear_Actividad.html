@@ -22,8 +22,17 @@
     <form action="" method="post">
         {% csrf_token %}
         {{form.as_p }}
-       <h1 align =center> <button type = "submit" class="btn btn-success"> Crear </button> </h1>
+       <h1 align =center> <button type = "submit" class="btn btn-success"> Crear </button> 
+        <button class ="btn btn-danger"> <a href="{% url 'FeedActividades'  campo="nombre" %}" style="color:white"> Cancelar </a> </button> </h2>
+      </h1>
     </form>
+    {% if form.errors %} 
+      {% for field in form %} 
+        {% for error in field.errors %} 
+          <p> {{ error }} </p> 
+        {% endfor %} 
+      {% endfor %} 
+    {% endif %}
     </div>
   </div>
 </div>
