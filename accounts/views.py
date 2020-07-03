@@ -32,7 +32,7 @@ def display_home(request):
     return render(request, 'accounts/home.html', context)
 
 def display_register(request):
-    if request.user.is_superuser:
+    if request.user.is_superuser: 
         form = CreateUserForm()
         if request.method == 'POST':
             form = CreateUserForm(request.POST)
