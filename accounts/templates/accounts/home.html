@@ -2,9 +2,10 @@
 {% block real_content %}
 <h1>Página principal</h1>
 {% if user.is_superuser %}
-<h2>Administrador</h2>
+<h2>Bienvenido a tu cuenta  Administrador</h2>
+<a class="btn btn-primary" href="{% url 'FeedActividadesAdmin' campo="nombre" %}">Actividades</a>
 {% else %}
-<h2>Invitado</h2>
+<h2>Bienvenido a tu cuenta Invitado</h2>
 <a class="btn btn-primary" href="{% url 'FeedActividades' campo="nombre" %}">Actividades</a>
 {% endif %}
 {% endblock %}

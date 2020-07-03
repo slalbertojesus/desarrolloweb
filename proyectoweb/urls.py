@@ -23,7 +23,7 @@ from Activities.views import eliminarActividad
 from Activities.views import realizarActividad
 from Report.views import Pdf
 from ReportAdmin.views import Report
-
+from ReportAdmin.views import MostrarActividadesAdmin
 
 
 
@@ -37,5 +37,7 @@ urlpatterns = [
     path ('actividadEstado/<int:id>', realizarActividad, name = "actividadEstado"),
     path('render/pdf/', Pdf.as_view(),name = "render/pdf"),
     path('render/pdfAdmin/', Report.as_view(),name = "render/pdfAdmin"),
+    path('FeedActividadesAdmin/<str:campo>', MostrarActividadesAdmin, name = "FeedActividadesAdmin"),
+
 
 ]
