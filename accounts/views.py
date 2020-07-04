@@ -102,6 +102,8 @@ def restore_password_key_view(request, password_key_provided):
         try:
             password_change =  PasswordReset.objects.get(reset_key = password_key_provided)
             user = password_change.user
+            account = None
+            account = User.objects.get(username=user.username)
         except PasswordReset.DoesNotExist:
             password_change = None
             raise Http404
@@ -109,18 +111,14 @@ def restore_password_key_view(request, password_key_provided):
             form = SetCustomPasswordForm(request.user, request.POST)
             if request.method == 'POST':
                 if form.is_valid():
-                    username = user.username
                     password = form.cleaned_data.get('new_password1')
-                    user.set_password(password)
-                    loggin = authenticate(request, username = username, password = password)
-                    if user is not None: 
-                        form.save()
-                        messages.success(request, 'La contraseña ha sido cambiada satisfactoriamente.')
+                    account.set_password(password)
+                    if account is not None: 
+                        account.save()
                         password_change.reset_key = ""
                         password_change.save()
+                        messages.success(request, 'La contraseña ha sido cambiada satisfactoriamente.')
                         return redirect('/login')
-                    else: 
-                        message = 'Ha ocurrido un error en el servidor.'
                 else:
                     message ='La contraseña no se ha podido cambiar'
         else:

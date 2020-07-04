@@ -99,13 +99,14 @@ WSGI_APPLICATION = 'proyectoweb.wsgi.application'
 
 
 DATABASES = {
+    'default':{
     'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'testing2',
         'USER': 'postgres',
         'PASSWORD': 'postgres',
         'HOST': 'db',
         'PORT': 5432,
-    
+    }
 }
 
 
