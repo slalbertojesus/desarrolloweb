@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
+from django.contrib.auth.decorators import login_required
 from .models import Actividad
 from .models import EstadoActividad
 from accounts.models import Account 
@@ -8,6 +9,7 @@ from datetime import date
 from datetime import datetime
 
 # Create your views here.
+@login_required
 def MostrarActividades(request, campo):
     actividades = Actividad.objects.filter(account = request.user).order_by(campo)
     for actividad in actividades:
@@ -22,7 +24,7 @@ def MostrarActividades(request, campo):
 
 
 
-
+@login_required
 def crearActividad(request):
     if request.method == 'GET':
         form = ActividadForm()
@@ -41,6 +43,7 @@ def crearActividad(request):
     
         return render(request, 'crear_Actividad.html',{'form':form})
 
+@login_required
 def editarActividad(request, id):
     if request.method == 'GET':
         form = ActividadForm()
@@ -56,6 +59,7 @@ def editarActividad(request, id):
             return render(request, 'editar_Actividad.html',{'form':form}) 
     return render(request, 'editar_Actividad.html',{'form':form}) 
 
+@login_required
 def eliminarActividad (request, id):
     actividad = Actividad.objects.get(id = id)
     if request.method == 'POST':
@@ -63,14 +67,14 @@ def eliminarActividad (request, id):
         return redirect('FeedActividades', campo="nombre")
     return render(request,'eliminar_actividad.html', {'actividad':actividad})
     
+@login_required
 def realizarActividad (request, id):   
     
     actividad = Actividad.objects.get(id = id)
    
     if request.method == 'POST':
-       
         actividad.fechaRealizacion= date.today()
-        if actividad.fechaEntrega < date.today():
+        if actividad.fechaEntrega <= date.today():
             actividad.estado = EstadoActividad.objects.get(id=3)
             actividad.save()
             return redirect('FeedActividades', campo="nombre")

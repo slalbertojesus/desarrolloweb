@@ -1,13 +1,17 @@
 from django.shortcuts import render
-
-# Create your views here.
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from django.views.generic import View
 from django.utils import timezone
 from Activities.models import *
 from Report.render import Render
 from datetime import date
 from datetime import datetime
-        
+from django.contrib.admin.views.decorators import staff_member_required
+
+
+@login_required  
+@staff_member_required
 def MostrarActividadesAdmin(request, campo):
     actividades = Actividad.objects.order_by(campo)
     for actividad in actividades:
@@ -19,8 +23,12 @@ def MostrarActividadesAdmin(request, campo):
         
             
     return render(request, "FeedActividadesAdmin.html", {"actividades":actividades})          
+
+
 class Report(View):
 
+    @method_decorator(login_required)
+    @method_decorator(staff_member_required)
     def get(self, request):
         actividades = Actividad.objects.all()
         
