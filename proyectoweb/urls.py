@@ -38,6 +38,5 @@ urlpatterns = [
     path('render/pdf/', Pdf.as_view(),name = "render/pdf"),
     path('render/pdfAdmin/', Report.as_view(),name = "render/pdfAdmin"),
     path('FeedActividadesAdmin/<str:campo>', MostrarActividadesAdmin, name = "FeedActividadesAdmin"),
-
-
 ]
+handler404 = 'accounts.views.error_404_view'

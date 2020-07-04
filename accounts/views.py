@@ -128,6 +128,9 @@ def restore_password_key_view(request, password_key_provided):
     context = {'form':form, "message": message}
     return render(request, 'accounts/password_forgotten.html', context)
 
+def error_404_view(request, exception):
+    return render(request, 'accounts/404.html')
+
 @login_required
 def accounts_view(request):
     accounts = User.objects.all()

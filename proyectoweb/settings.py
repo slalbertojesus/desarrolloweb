@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '1y#khp5bzd!2*s_+xo=od)z7w_-c71*1fq8^tt#ln!w1ybj3=!'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 # DEFAULT ENGINE FOR EMAILS
 DEFAULT_FROM_EMAIL = "postmaster@sandbox210394da446d43899409579c7f7cbe83.mailgun.org"
